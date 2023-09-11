@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
         email: {
             type: DataTypes.STRING,
         },
-        password: {
+        password: {//TODO: encrypt
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -35,7 +35,6 @@ module.exports = (sequelize) => {
         address: {
             type: DataTypes.STRING,
         },
-        //boolean
         status: {
             type: DataTypes.BOOLEAN,
             defaultValue: true,
