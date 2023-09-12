@@ -47,10 +47,10 @@ module.exports = (sequelize) => {
                 defaultValue: null,
             },
             admin_id: {
+                //admin is a user with role admin
                 type: DataTypes.UUID,
-                allowNull: false,
                 references: {
-                    model: "admins",
+                    model: "users",
                     key: "id",
                 },
             },
