@@ -46,6 +46,14 @@ module.exports = (sequelize) => {
                 allowNull: true,
                 defaultValue: null,
             },
+            admin_id: {
+                type: DataTypes.UUID,
+                allowNull: false,
+                references: {
+                    model: "admins",
+                    key: "id",
+                },
+            },
         },
         {
             paranoid: true,

@@ -55,8 +55,8 @@ Review.belongsTo(User, { foreignKey: "user_id" });
 Service.hasMany(Review, { foreignKey: "service_id" });
 Review.belongsTo(Service, { foreignKey: "service_id" });
 
-Admin.belongsToMany(Service, { through: "admin_service" });
-Service.belongsToMany(Admin, { through: "admin_service" });
+Admin.hasMany(Service, { foreignKey: "admin_id" });
+Service.belongsTo(Admin, { foreignKey: "admin_id" });
 
 Service.belongsToMany(Category, { through: "service_category" });
 Category.belongsToMany(Service, { through: "service_category" });
