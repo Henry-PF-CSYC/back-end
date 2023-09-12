@@ -9,12 +9,15 @@ module.exports = (sequelize) => {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
         },
-
+        dni: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-
         lastname: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -38,10 +41,13 @@ module.exports = (sequelize) => {
         address: {
             type: DataTypes.STRING,
         },
-        //boolean
         status: {
             type: DataTypes.BOOLEAN,
             defaultValue: true,
+        },
+        role: {
+            type: DataTypes.ENUM("user", "admin"),
+            defaultValue: "user",
         },
     });
 };
