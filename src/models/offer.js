@@ -1,41 +1,39 @@
 const { DataTypes } = require("sequelize");
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
-    // defino el modelo
     sequelize.define(
-        "user",
+        "offer",
         {
             id: {
                 primaryKey: true,
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
             },
-            name: {
+            user_id: {
+                type: DataTypes.UUID,
+                allowNull: false,
+                references: {
+                    model: "users",
+                    key: "id",
+                },
+            },
+            title: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            email: {
-                type: DataTypes.STRING,
+            description: {
+                type: DataTypes.TEXT,
             },
-            password: {
-                //TODO: encriptar
-                type: DataTypes.STRING,
+            contact: {
+                type: DataTypes.INTEGER,
                 allowNull: false,
-            },
-            phone: {
-                type: DataTypes.STRING,
-            },
-            address: {
-                type: DataTypes.STRING,
-            },
-            role: {
-                type: DataTypes.ENUM("user", "admin"),
-                defaultValue: "user",
             },
             image: {
-                //TODO: handle based on how firebase works
+                //todo: handle based on how firebase works
                 type: DataTypes.STRING,
+            },
+            type: {
+                type: DataTypes.ENUM("compra", "venta", "laboral"),
+                allowNull: false,
             },
             deletedAt: {
                 type: DataTypes.DATE,
@@ -47,7 +45,7 @@ module.exports = (sequelize) => {
             paranoid: true,
             timestamps: true,
             underscored: true,
-            tableName: "users",
+            tableName: "offers",
         }
     );
 };
