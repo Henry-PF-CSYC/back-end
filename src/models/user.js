@@ -6,17 +6,21 @@ module.exports = (sequelize) => {
     sequelize.define(
         "user",
         {
-            id: {
+            email: {
+                type: DataTypes.STRING,
                 primaryKey: true,
-                type: DataTypes.UUID,
-                defaultValue: DataTypes.UUIDV4,
+            },
+            dni: {
+                type: DataTypes.INTEGER,
+                unique: true,
             },
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            email: {
+            lastname: {
                 type: DataTypes.STRING,
+                allowNull: false,
             },
             password: {
                 //TODO: encriptar
