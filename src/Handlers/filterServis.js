@@ -1,5 +1,5 @@
 const { Service} = require('../db');
-const filterProducts = async (req, res) => {
+const filterServis = async (req, res) => {
     //Desestruturamos estos valores
     const {
         servis,
@@ -41,4 +41,6 @@ const filterProducts = async (req, res) => {
         return res.status(400).json({ error: 'Error al obtener los productos.' });
       }
 }
-module.exports = {filterProducts};
+module.exports = {filterServis};
+
+// En resumen, este bloque de código crea una función que acepta solicitudes HTTP, filtra servicios en una base de datos según los criterios proporcionados en los parámetros de consulta y responde con los productos que cumplen con esos criterios o un arreglo vacío si no se encuentran coincidencias. También maneja errores en caso de que ocurran problemas durante la búsqueda en la base de datos.
