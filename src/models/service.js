@@ -47,10 +47,10 @@ module.exports = (sequelize) => {
                 defaultValue: null,
             },
             admin_id: {
-                type: DataTypes.UUID,
+                type: DataTypes.STRING,
                 references: {
                     model: "users",
-                    key: "id",
+                    key: "email",
                 },
             },
         },
