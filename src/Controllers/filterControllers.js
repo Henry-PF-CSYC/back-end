@@ -1,12 +1,12 @@
 const { Service } = require('../db');
 
-const filterServices = async (servis, minPrice, maxPrice) => {
+const filterServices = async (service, minPrice, maxPrice) => {
     let whereCondition = {};
 
-    if (servis) {
+    if (service) {
         whereCondition = {
             ...whereCondition,
-            productbrand: servis
+            productbrand: service
         };
     }
 
