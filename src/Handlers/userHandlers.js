@@ -22,8 +22,18 @@ const getAllUsers = async (req, res) => {
 };
 
 const creatUser = async (req, res) => {
-  const { name, lastname, username, email, password, phone, address, status } =
-    req.body;
+  const {
+    name,
+    lastname,
+    username,
+    email,
+    password,
+    phone,
+    address,
+    status,
+    dni,
+    image,
+  } = req.body;
   try {
     const newUsers = await postUserControler(
       name,
@@ -33,7 +43,9 @@ const creatUser = async (req, res) => {
       password,
       phone,
       address,
-      status
+      status,
+      dni,
+      image
     );
     res.status(200).json(newUsers);
   } catch (error) {
