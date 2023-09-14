@@ -1,44 +1,38 @@
 const { DataTypes } = require("sequelize");
-
 module.exports = (sequelize) => {
     sequelize.define(
-        "service",
+        "offer",
         {
             id: {
                 primaryKey: true,
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
             },
-            type: {
+            user_id: {
                 type: DataTypes.STRING,
                 allowNull: false,
+                references: {
+                    model: "users",
+                    key: "email",
+                },
             },
-            name: {
+            title: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
             description: {
-                type: DataTypes.STRING,
-                allowNull: false,
+                type: DataTypes.TEXT,
             },
-            provider: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            price: {
+            contact: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
             image: {
+                //todo: handle based on how firebase works
                 type: DataTypes.STRING,
-                allowNull: false,
             },
-            status: {
-                type: DataTypes.ENUM(
-                    "available",
-                    "discontinued",
-                    "unavailable"
-                ),
+            type: {
+                type: DataTypes.ENUM("compra", "venta", "laboral"),
                 allowNull: false,
             },
             deletedAt: {
@@ -46,19 +40,12 @@ module.exports = (sequelize) => {
                 allowNull: true,
                 defaultValue: null,
             },
-            admin_id: {
-                type: DataTypes.STRING,
-                references: {
-                    model: "users",
-                    key: "email",
-                },
-            },
         },
         {
             paranoid: true,
             timestamps: true,
             underscored: true,
-            tableName: "services",
+            tableName: "offers",
         }
     );
 };

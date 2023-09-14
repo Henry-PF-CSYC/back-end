@@ -18,11 +18,11 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         user_id: {
-            type: DataTypes.UUID,
+            type: DataTypes.STRING,
             allowNull: false,
             references: {
                 model: "users",
-                key: "id",
+                key: "email",
             },
         },
         service_id: {
