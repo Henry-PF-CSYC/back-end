@@ -9,7 +9,9 @@ const postUserControler = async (
   password,
   phone,
   address,
-  status
+  status,
+  dni,
+  image
 ) => {
   const newUsers = await User.create({
     name,
@@ -20,6 +22,8 @@ const postUserControler = async (
     phone,
     address,
     status,
+    dni,
+    image,
   });
   return newUsers;
 };
