@@ -35,13 +35,11 @@ let capsEntries = entries.map((entry) => [
     entry[0][0].toUpperCase() + entry[0].slice(1),
     entry[1],
 ]);
-console.log(capsEntries);
 sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Service, Category, User, Review, Membership } = sequelize.models; //admins,memberships,models,reviews,services,users
-console.log(sequelize.models);
+const { Service, Category, User, Review, Membership, Offer } = sequelize.models; //admins,memberships,models,reviews,services,users
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
@@ -57,6 +55,9 @@ Review.belongsTo(Service, { foreignKey: "service_id" });
 
 User.hasMany(Service, { foreignKey: "admin_id" });
 Service.belongsTo(User, { foreignKey: "admin_id" });
+
+User.hasMany(Offer, { foreignKey: "user_id" });
+Offer.belongsTo(User, { foreignKey: "user_id" });
 
 Service.belongsToMany(Category, { through: "service_category" });
 Category.belongsToMany(Service, { through: "service_category" });
