@@ -16,6 +16,23 @@ const getReviewsByServiceId = async (req, res) => {
   }
 };
 
+// Controlador para obtener revisiones por ID de usuario
+const getReviewsByUserId = async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    // Busca las revisiones asociadas al usuario por su ID
+    const reviews = await Review.findAll({
+      where: { userId },
+    });
+
+    res.status(200).json(reviews);
+  } catch (error) {
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
 module.exports = {
   getReviewsByServiceId,
+  getReviewsByUserId,
 };
