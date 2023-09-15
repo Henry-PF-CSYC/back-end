@@ -16,7 +16,7 @@ server.use(cookieParser());
 server.use(morgan("dev"));
 
 const corsOptions = {
-    origin: "http://localhost:3000", //TODO: update to deployment url
+    origin: "*", //TODO: update to deployment url
     credentials: true,
 };
 
