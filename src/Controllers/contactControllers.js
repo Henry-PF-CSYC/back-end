@@ -1,7 +1,7 @@
 const { User } = require("../db");
 const mailer = require("nodemailer");
 require("dotenv").config();
-console.log("process.env.EMAIL_USER: ", process.env.EMAIL_USER);
+console.log("process.env.EMAIL_APP: ", process.env.EMAIL_APP);
 console.log("process.env.EMAIL_PASSWORD: ", process.env.EMAIL_PASSWORD);
 const contactAdmin = async (name, phone, message) => {
     try {
@@ -21,7 +21,7 @@ const contactAdmin = async (name, phone, message) => {
             port: 465,
             secure: true,
             auth: {
-                user: process.env.EMAIL_USER,
+                user: process.env.EMAIL_APP,
                 pass: process.env.EMAIL_PASSWORD,
                 authMethod: "PLAIN", // or "XOAUTH2"
             },
@@ -31,7 +31,7 @@ const contactAdmin = async (name, phone, message) => {
             <h3>Mensaje: ${message}</h3>`;
 
         const mailOptions = {
-            from: process.env.EMAIL_USER,
+            from: process.env.EMAIL_APP,
             to: email,
             subject: "Contacto de usuario",
             html: html,
