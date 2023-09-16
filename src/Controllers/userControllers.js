@@ -37,18 +37,42 @@ const getUserByName = async (name) => {
     });
     return user;
 };
+const getAdminController = async (req, res) => {
+    const admin = await User.findOne({
+        where: { role: "admin" },
+    });
 
+    console.log(admin);
+    if (!admin) {
+        throw new Error("No se encontró el administrador");
+    }
+    return admin;
+};
 const getAllUsersController = async () => {
-    return await User.findAll();
+    //all wher role is not admin
+    return await User.findAll(
+        {
+            where: {
+                role: {
+                    [Op.not]: "admin",
+                },
+            },
+        },
+        { raw: true }
+    );
 };
 
-const getUserByEmail = async (email)=>{
-    
+const getUserByEmail = async (email) => {
     const user = await User.findOne({
-        where: {email:email}
+        where: { email: email },
     });
     return user;
-}
+};
 
-module.exports = { postUserControler, getUserByName, getAllUsersController, getUserByEmail
+module.exports = {
+    postUserControler,
+    getUserByName,
+    getAllUsersController,
+    getUserByEmail,
+    getAdminController,
 };
