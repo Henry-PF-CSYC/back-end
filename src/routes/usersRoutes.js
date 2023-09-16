@@ -5,6 +5,7 @@ const userrouter = Router();
 
 userrouter.get('/', getAllUsers);
 
+
 userrouter.post("/", creatUser);
 
 // userrouter.put('/', putUsers);

@@ -42,4 +42,13 @@ const getAllUsersController = async () => {
     return await User.findAll();
 };
 
-module.exports = { postUserControler, getUserByName, getAllUsersController };
+const getUserByEmail = async (email)=>{
+    
+    const user = await User.findOne({
+        where: {email:email}
+    });
+    return user;
+}
+
+module.exports = { postUserControler, getUserByName, getAllUsersController, getUserByEmail
+};
