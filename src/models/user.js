@@ -22,11 +22,6 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            password: {
-                //TODO: encriptar
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
             phone: {
                 type: DataTypes.STRING,
             },
