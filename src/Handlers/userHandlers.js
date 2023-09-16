@@ -2,20 +2,41 @@ const {
     postUserControler,
     getUserByName,
     getAllUsersController,
+    getUserByEmail
 } = require("../Controllers/userControllers");
 
 const getAllUsers = async (req, res) => {
-    const { name } = req.query;
+    const { name, email } = req.query;
+
     try {
-        const user = name
-            ? await getUserByName(name)
-            : await getAllUsersController();
-        if (user.length == 0) {
-            return res
-                .status(400)
-                .json({ message: "El usuario solicitado no existe" });
+        if (name) {
+            // Si se proporciona un valor para 'name', busca por nombre
+            const user = await getUserByName(name);
+            if (!user) {
+                return res
+                    .status(400)
+                    .json({ message: "El usuario solicitado no existe" });
+            }
+            return res.status(200).json(user);
+        } else if (email) {
+            // Si se proporciona un valor para 'email', busca por email
+            const user = await getUserByEmail(email);
+            if (!user) {
+                return res
+                    .status(400)
+                    .json({ message: "El usuario solicitado no existe" });
+            }
+            return res.status(200).json(user);
+        } else {
+            // Si no se proporcionan 'name' ni 'email', obtiene todos los usuarios
+            const users = await getAllUsersController();
+            if (users.length === 0) {
+                return res
+                    .status(400)
+                    .json({ message: "No se encontraron usuarios" });
+            }
+            return res.status(200).json(users);
         }
-        return res.status(200).json(user);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -54,4 +75,5 @@ const creatUser = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+
 module.exports = { creatUser, getAllUsers };
