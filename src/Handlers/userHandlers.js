@@ -2,9 +2,18 @@ const {
     postUserControler,
     getUserByName,
     getAllUsersController,
-    getUserByEmail
+    getUserByEmail,
+    getAdminController,
 } = require("../Controllers/userControllers");
 
+const getAdmin = async (req, res) => {
+    try {
+        const admin = await getAdminController();
+        res.status(200).json(admin);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
 const getAllUsers = async (req, res) => {
     const { name, email } = req.query;
 
@@ -41,8 +50,7 @@ const getAllUsers = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
-
-const creatUser = async (req, res) => {
+const createAdmin = async (req, res) => {
     const {
         name,
         lastname,
@@ -54,10 +62,10 @@ const creatUser = async (req, res) => {
         status,
         dni,
         image,
-        role,
     } = req.body;
+    const role = "admin";
     try {
-        const newUsers = await postUserControler(
+        const newAdmin = await postUserControler(
             name,
             lastname,
             username,
@@ -70,10 +78,41 @@ const creatUser = async (req, res) => {
             image,
             role
         );
+        res.status(200).json(newAdmin);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+const creatUser = async (req, res) => {
+    const {
+        name,
+        lastname,
+        username,
+        email,
+        password,
+        phone,
+        address,
+        status,
+        dni,
+        image,
+    } = req.body;
+    try {
+        const newUsers = await postUserControler(
+            name,
+            lastname,
+            username,
+            email,
+            password,
+            phone,
+            address,
+            status,
+            dni,
+            image
+        );
         res.status(200).json(newUsers);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
 
-module.exports = { creatUser, getAllUsers };
+module.exports = { creatUser, getAllUsers, getAdmin, createAdmin };

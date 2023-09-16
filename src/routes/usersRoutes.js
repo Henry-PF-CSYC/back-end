@@ -1,12 +1,18 @@
 const { Router } = require("express");
-const { creatUser, getAllUsers } = require("../Handlers/userHandlers");
+const {
+    creatUser,
+    getAllUsers,
+    getAdmin,
+    createAdmin,
+} = require("../Handlers/userHandlers");
 
 const userrouter = Router();
 
-userrouter.get('/', getAllUsers);
-
+userrouter.get("/", getAllUsers);
+userrouter.get("/admin", getAdmin);
 
 userrouter.post("/", creatUser);
+userrouter.post("/admin", createAdmin);
 
 // userrouter.put('/', putUsers);
 
