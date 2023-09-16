@@ -1,4 +1,5 @@
 const { User } = require("../db");
+const { Op } = require("sequelize");
 
 const postUserControler = async (
   name,
@@ -8,7 +9,9 @@ const postUserControler = async (
   password,
   phone,
   address,
-  status
+  status,
+  dni,
+  image
 ) => {
   const newUsers = await User.create({
     name,
@@ -19,7 +22,22 @@ const postUserControler = async (
     phone,
     address,
     status,
+    dni,
+    image,
   });
   return newUsers;
 };
-module.exports = { postUserControler };
+
+const getUserByName = async (name) => {
+  const tolowercaseName = name.toLowerCase();
+  const user = await User.findAll({
+    where: { name: { [Op.iLike]: "%" + tolowercaseName + "%" } },
+  });
+  return user;
+};
+
+const getAllUsersController = async () => {
+  return await User.findAll();
+};
+
+module.exports = { postUserControler, getUserByName, getAllUsersController };

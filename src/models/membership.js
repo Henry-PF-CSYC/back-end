@@ -15,5 +15,21 @@ module.exports = (sequelize) => {
             type: DataTypes.ENUM("active", "inactive", "overdue"),
             allowNull: false,
         },
+        user_id: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            references: {
+                model: "users",
+                key: "email",
+            },
+        },
+        service_id: {
+            type: DataTypes.UUID,
+            allowNull: false,
+            references: {
+                model: "services",
+                key: "id",
+            },
+        },
     });
 };

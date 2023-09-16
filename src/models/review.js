@@ -17,5 +17,21 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        user_id: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            references: {
+                model: "users",
+                key: "email",
+            },
+        },
+        service_id: {
+            type: DataTypes.UUID,
+            allowNull: false,
+            references: {
+                model: "services",
+                key: "id",
+            },
+        },
     });
 };
