@@ -13,6 +13,7 @@ module.exports = (sequelize) => {
             dni: {
                 type: DataTypes.INTEGER,
                 unique: true,
+                allowNull: true,
             },
             name: {
                 type: DataTypes.STRING,
@@ -20,21 +21,25 @@ module.exports = (sequelize) => {
             },
             lastname: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             phone: {
                 type: DataTypes.STRING,
+                allowNull: true,
             },
             address: {
                 type: DataTypes.STRING,
+                allowNull: true,
             },
             role: {
                 type: DataTypes.ENUM("user", "admin"),
                 defaultValue: "user",
+                allowNull: false,
             },
             image: {
                 //TODO: handle based on how firebase works
                 type: DataTypes.STRING,
+                allowNull: true,
             },
             deletedAt: {
                 type: DataTypes.DATE,
