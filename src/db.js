@@ -1,7 +1,7 @@
-require('dotenv').config();
-const { Sequelize, Op } = require('sequelize');
-const fs = require('fs');
-const path = require('path');
+require("dotenv").config();
+const { Sequelize, Op } = require("sequelize");
+const fs = require("fs");
+const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 const sequelize = new Sequelize(
@@ -10,8 +10,8 @@ const sequelize = new Sequelize(
         logging: false, // set to console.log to see the raw SQL queries
         native: false, // lets Sequelize know we can use pg-native for ~30% more speed
         dialectOptions: {
-            supportBigNumbers: true
-        }
+            supportBigNumbers: true,
+        },
     }
 );
 const basename = path.basename(__filename);
@@ -30,7 +30,6 @@ fs.readdirSync(path.join(__dirname, "/models"))
     .forEach((file) => {
         modelDefiners.push(require(path.join(__dirname, "/models", file)));
     });
-
 
 // Injectamos la conexion (sequelize) a todos los modelos
 modelDefiners.forEach((model) => model(sequelize));
@@ -59,15 +58,11 @@ Review.belongsTo(User, { foreignKey: "user_id" });
 Service.hasMany(Review, { foreignKey: "service_id" });
 Review.belongsTo(Service, { foreignKey: "service_id" });
 
-User.hasMany(Service, { foreignKey: "admin_id" });
-Service.belongsTo(User, { foreignKey: "admin_id" });
-
 User.hasMany(Offer, { foreignKey: "user_id" });
 Offer.belongsTo(User, { foreignKey: "user_id" });
 
 Service.belongsToMany(Category, { through: "service_category" });
 Category.belongsToMany(Service, { through: "service_category" });
-
 
 module.exports = {
     ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
