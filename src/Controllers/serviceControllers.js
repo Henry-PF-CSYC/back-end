@@ -29,12 +29,19 @@ const getServiceByNameController = async (name) => {
     return service;
 };
 
-const gelAllServicesController = async () => {
-    return await Service.findAll();
+
+const getAllServicesController = async (page = 1, limit = 10) => {
+  const offset = page * limit - limit;
+  const services = await Service.findAll({
+      offset,
+      limit,
+  });
+  return services;
 };
 
 module.exports = {
-    postServiceController,
-    getServiceByNameController,
-    gelAllServicesController,
+  postServiceController,
+  getServiceByNameController,
+  getAllServicesController,
+
 };

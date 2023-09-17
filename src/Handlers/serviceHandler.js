@@ -1,9 +1,11 @@
 const { Service } = require("../db");
 
 const {
+
     postServiceController,
     getServiceByNameController,
     gelAllServicesController,
+
 } = require("../Controllers/serviceControllers");
 
 const postServiceHandler = async (req, res) => {
@@ -56,4 +58,22 @@ const getServiceById = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
-module.exports = { postServiceHandler, getAllService, getServiceById };
+
+const getAllServicesHandler = async (req, res) => {
+  try {
+      // Obtén los parámetros de consulta (page y limit) de req.query
+      const { page, limit } = req.query;
+
+      // Llama al controlador getAllServicesController con los parámetros de consulta
+      const services = await getAllServicesController(page, limit);
+
+      // Envía los servicios como respuesta en formato JSON
+      res.json(services);
+  } catch (error) {
+      console.error(error);
+      // Maneja los errores y devuelve una respuesta de error apropiada
+      res.status(400).json({ error: 'Error interno del servidor' });
+  }
+};
+
+module.exports = { postServiceHandler, getAllService, getServiceById, getAllServicesHandler };
