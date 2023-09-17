@@ -27,4 +27,38 @@ const filterServices = async (service, minPrice, maxPrice) => {
     }
 };
 
-module.exports = { filterServices };
+const filterServicesByPriceRanges = async (minPrice, maxPrice) => {
+    if (!minPrice || !maxPrice) {
+        throw new Error('Debe proporcionar valores para minPrice y maxPrice.');
+    }
+
+    const parsedMinPrice = parseInt(minPrice);
+    const parsedMaxPrice = parseInt(maxPrice);
+
+    if (isNaN(parsedMinPrice) || isNaN(parsedMaxPrice)) {
+        throw new Error('Los valores proporcionados para minPrice y maxPrice deben ser números válidos.');
+    }
+
+    if (parsedMinPrice >= parsedMaxPrice) {
+        throw new Error('El precio mínimo debe ser mayor al precio máximo.');
+    }
+
+    try {
+        const dbServices = await Service.findAll({
+            where: {
+                price: {
+                    [Op.between]: [parsedMinPrice, parsedMaxPrice],
+                },
+            },
+        });
+
+        return dbServices;
+    } catch (error) {
+        throw new Error('Error al obtener los productos.');
+    }
+};
+
+module.exports = { 
+    filterServices,
+    filterServicesByPriceRanges
+ };
