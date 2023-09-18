@@ -7,7 +7,10 @@ const {
     orderByPrice,
     paginate,
 } = require("../utils/serviceUtils");
-
+const postArrayServiceController = async (array) => {
+    const newServices = await Service.bulkCreate(array);
+    return newServices;
+};
 const postServiceController = async (
     type,
     name,
@@ -63,4 +66,5 @@ module.exports = {
     postServiceController,
     getServiceByNameController,
     getAllServicesController,
+    postArrayServiceController,
 };

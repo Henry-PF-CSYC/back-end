@@ -4,6 +4,7 @@ const {
     postServiceController,
     getServiceByNameController,
     getAllServicesController,
+    postArrayServiceController,
 } = require("../Controllers/serviceControllers");
 
 const postServiceHandler = async (req, res) => {
@@ -20,6 +21,15 @@ const postServiceHandler = async (req, res) => {
             status
         );
         res.status(200).json(newService);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+const postArrayServiceHandler = async (req, res) => {
+    const array = req.body;
+    try {
+        const newServices = await postArrayServiceController(array);
+        res.status(200).json(newServices);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -84,4 +94,5 @@ module.exports = {
     postServiceHandler,
     getAllService,
     getServiceById,
+    postArrayServiceHandler,
 };
