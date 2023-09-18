@@ -38,7 +38,7 @@ const getServiceByNameController = async (name) => {
 
 const getAllServicesController = async (
     page = 1,
-    size = 10,
+    size = 3,
     type = null,
     order = "ASC",
     orderBy = "price", //price or name
