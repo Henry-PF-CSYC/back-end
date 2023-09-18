@@ -1,0 +1,151 @@
+[
+    {
+        "type": "luz",
+        "name": "Electricidad",
+        "description": "Nuestra red eléctrica está diseñada para que tengas un suministro constante de energía. \nNo tendrás que preocuparte por cortes inesperados que interrumpan tus actividades. Unete hoy para disfrutar de todos los beneficios de una energia limpia!",
+        "provider": "?",
+        "price": 5000,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "gas",
+        "name": "Gas natural",
+        "description": "Nuestro servicio de gas te brinda la comodidad y el calor que necesitas en tu hogar.Calidez y seguridad garantizada, pedilo hoy!",
+        "provider": "?",
+        "price": 9000,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "internet",
+        "name": "10 Megas",
+        "description": "Plan básico con una velocidad estándar para uso cotidiano, que es ideal para 3 o 4 dispositivos\nsimultaneos!",
+        "provider": "?",
+        "price": 4000,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "internet",
+        "name": "50 Megas",
+        "description": "10 megas no son suficientes? Te ofrecemos este plan para que puedas expandirte aun más, de 5 a 6 dispositivos!",
+        "provider": "?",
+        "price": 6000,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "internet",
+        "name": "100 Megas",
+        "description": "Nuestro plan más potente, para más de 7 dispositivos. Olvidate de los cortes y restricciones. Usar con precaución!",
+        "provider": "?",
+        "price": 9000,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "agua",
+        "name": "Agua Potable",
+        "description": "Brindamos agua potable con altos estándares de calidad, comprometiéndonos con el futuro de las generaciones venideras.",
+        "provider": "?",
+        "price": 5000,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "cable",
+        "name": "Básico",
+        "description": "Plan básico con 40 canales, para chicos y adultos de todas las edades!",
+        "provider": "?",
+        "price": 2500,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "cable",
+        "name": "Intermedio",
+        "description": "Plan intermedio con 70 canales, incluido el pack de deportes!",
+        "provider": "?",
+        "price": 4000,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "cable",
+        "name": "Plus+",
+        "description": "Plan con 100 canales, incluidos internacionales, deportes y muchos más!",
+        "provider": "?",
+        "price": 6000,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "telefonia",
+        "name": "Telefonia fija",
+        "description": "Ideal para el hogar, plan estándar con todos los beneficios!",
+        "provider": "?",
+        "price": 1500,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "telefonia",
+        "name": "Telefonia movil",
+        "description": "Telefonia móvil, con 5gb para navegar y Whatsapp gratis!",
+        "provider": "?",
+        "price": 2000,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "telefonia",
+        "name": "Conexion Ilimitada",
+        "description": "Telefonia fija y movil, ideal para siempre estar comunicado!",
+        "provider": "?",
+        "price": 3000,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "streaming",
+        "name": "Netflix & Disney+",
+        "description": "Pack estándar para disfrutar series y películas de calidad!",
+        "provider": "?",
+        "price": 1000,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "streaming",
+        "name": "Pack 4 en 1",
+        "description": "4 servicios. 4 formas de disfrutar miles de éxitos!",
+        "provider": "?",
+        "price": 1500,
+        "image": "local x el momento",
+        "status": "available"
+    },
+
+    {
+        "type": "streaming",
+        "name": "Pack cine",
+        "description": "Con este plan, aburrirse será tarea dificil, 6 servicios y más en camino.",
+        "provider": "?",
+        "price": 2000,
+        "image": "local x el momento",
+        "status": "available"
+    }
+]
