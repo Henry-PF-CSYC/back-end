@@ -40,10 +40,10 @@ const getAllServicesController = async (
     page = 1,
     size = 10,
     type = null,
-    order = "ASC", //alphebetical order
+    order = "ASC",
     orderBy = "price", //price or name
     min = 0,
-    max = 99999999999999999999
+    max = 999999999999999
 ) => {
     let ordered;
     const services = await Service.findAll();
