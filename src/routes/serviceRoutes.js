@@ -1,7 +1,7 @@
 const { Router } = require("express");
 
 const { postServiceHandler, getAllService, getServiceById, getAllServicesHandler } = require("../Handlers/serviceHandler");
-const {filterservice, filterServiceByPriceRange} = require('../Handlers/filterHandler');
+const {filterservice, filterServiceByPriceRange, } = require('../Handlers/filterHandler');
 
 
 const serviceRouter = Router();
@@ -17,6 +17,7 @@ serviceRouter.post("/", postServiceHandler);
 
 serviceRouter.get('/filter?', filterservice);
 serviceRouter.get('/search', filterServiceByPriceRange);
+serviceRouter.get('/alphabetical', filterServiceA-Z);
 
 
 module.exports = serviceRouter;

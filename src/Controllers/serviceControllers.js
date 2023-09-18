@@ -29,8 +29,8 @@ const getServiceByNameController = async (name) => {
     return service;
 };
 
-
-const getAllServicesController = async (page = 1, limit = 10) => {
+/*paginadado, 3card 1 en total 5 */
+const getAllServicesController = async (page = 1, limit = 3) => {
   const offset = page * limit - limit;
   const services = await Service.findAll({
       offset,
