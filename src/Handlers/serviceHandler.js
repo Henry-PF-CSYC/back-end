@@ -38,23 +38,32 @@ const getAllService = async (req, res) => {
     const { name, page, size, type, order, min, max, orderBy } = req.query;
 
     try {
-        const service = name
-            ? await getServiceByNameController(name)
-            : await getAllServicesController(
-                  page,
-                  size,
-                  type,
-                  order,
-                  orderBy,
-                  min,
-                  max
-              );
-        if (service.length === 0) {
+        let service = [];
+        let count = 0;
+        if (name) {
+            service = await getServiceByNameController(name);
+            count = Math.ceil(service.length / size);
+        } else {
+            const { totalPages, paginated } = await getAllServicesController(
+                page,
+                size,
+                type,
+                order,
+                orderBy,
+                min,
+                max
+            );
+            service = paginated;
+            count = totalPages;
+        }
+
+        if (count === 0) {
             return res
                 .status(400)
                 .json({ message: "No se encontró ningun servicio" });
         }
-        return res.status(200).json(service);
+
+        return res.status(200).json({ count, service });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
