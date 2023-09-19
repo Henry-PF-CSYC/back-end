@@ -18,9 +18,10 @@ const createSubscription = async (req, res) => {
         );
         res.status(201).json(subscription);
     } catch (error) {
-        res.status(400).json(error.message);
+        res.status(400).json({ error: error.message });
     }
 };
+
 module.exports = {
     createSubscription,
     //getSubscriptions,
