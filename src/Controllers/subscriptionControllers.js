@@ -1,13 +1,16 @@
 const { Subscription, User, Service } = require("../db");
 
 const createSubscriptionController = async (
-    due_date,
+    length_in_months,
     user_email,
     service_id
 ) => {
     try {
         const status = "active";
-        // Find the user by email
+        let due_date = new Date();
+
+        due_date.setMonth(due_date.getMonth() + parseInt(length_in_months));
+
         const user = await User.findOne({ where: { email: user_email } });
         if (!user) {
             return { success: false, message: "User not found" };
@@ -19,18 +22,25 @@ const createSubscriptionController = async (
             return { success: false, message: "Service not found" };
         }
 
-        // Create the subscription
-        const subscription = await Subscription.create({
-            due_date,
-            status,
-            user_id: user.email,
-            service_id,
+        // findOrCreate the subscription
+        const [subscription, created] = await Subscription.findOrCreate({
+            where: {
+                user_id: user.email,
+                service_id: service.id,
+            },
+            defaults: {
+                due_date,
+                status,
+            },
         });
+        if (!created) {
+            throw new Error("Subscription already exists");
+        }
 
-        return { success: true, subscription };
+        return subscription;
     } catch (error) {
         console.error(error);
-        return { success: false, message: "Error creating subscription" };
+        return { message: error.message };
     }
 };
 

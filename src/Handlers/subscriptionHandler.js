@@ -9,10 +9,10 @@ const {
 
 const createSubscription = async (req, res) => {
     try {
-        const { due_date, user_email, service_id } = req.body;
-        console.log({ due_date, user_email, service_id });
+        const { length_in_months, user_email, service_id } = req.body;
+
         const subscription = await createSubscriptionController(
-            due_date,
+            length_in_months,
             user_email,
             service_id
         );
