@@ -3,8 +3,6 @@ const mailer = require("nodemailer");
 require("dotenv").config();
 const contactAdmin = async (name, phone, message) => {
     try {
-        console.log("process.env.EMAIL_APP: ", process.env.EMAIL_APP);
-        console.log("process.env.EMAIL_PASSWORD: ", process.env.EMAIL_PASSWORD);
         const admin = await User.findOne({
             where: {
                 role: "admin",
@@ -42,7 +40,6 @@ const contactAdmin = async (name, phone, message) => {
                 ...mailOptions,
             })
             .catch((error) => {
-                console.log("error: ", error);
                 throw error;
             });
         return info;
