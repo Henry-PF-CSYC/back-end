@@ -85,20 +85,6 @@ const getServiceById = async (req, res) => {
     }
 };
 
-/* const getAllServicesHandler = async () => {
-    try {
-        // Llama al controlador getAllServicesController con los parámetros de consulta
-        const services = await getAllServicesController(page, limit);
-
-        // Envía los servicios como respuesta en formato JSON
-        res.json(services);
-    } catch (error) {
-        console.error(error);
-        // Maneja los errores y devuelve una respuesta de error apropiada
-        res.status(400).json({ error: "Error interno del servidor" });
-    }
-}; */
-
 module.exports = {
     postServiceHandler,
     getAllService,
