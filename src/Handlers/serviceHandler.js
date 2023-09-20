@@ -1,11 +1,10 @@
 const { Service } = require("../db");
 
 const {
-
     postServiceController,
     getServiceByNameController,
-    gelAllServicesController,
-
+    getAllServicesController,
+    postArrayServiceController,
 } = require("../Controllers/serviceControllers");
 
 const postServiceHandler = async (req, res) => {
@@ -26,12 +25,30 @@ const postServiceHandler = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+const postArrayServiceHandler = async (req, res) => {
+    const array = req.body;
+    try {
+        const newServices = await postArrayServiceController(array);
+        res.status(200).json(newServices);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
 const getAllService = async (req, res) => {
-    const { name } = req.query;
+    const { name, page, size, type, order, min, max, orderBy } = req.query;
+
     try {
         const service = name
             ? await getServiceByNameController(name)
-            : await gelAllServicesController();
+            : await getAllServicesController(
+                  page,
+                  size,
+                  type,
+                  order,
+                  orderBy,
+                  min,
+                  max
+              );
         if (service.length === 0) {
             return res
                 .status(400)
@@ -59,21 +76,9 @@ const getServiceById = async (req, res) => {
     }
 };
 
-const getAllServicesHandler = async (req, res) => {
-  try {
-      // Obtén los parámetros de consulta (page y limit) de req.query
-      const { page, limit } = req.query;
-
-      // Llama al controlador getAllServicesController con los parámetros de consulta
-      const services = await getAllServicesController(page, limit);
-
-      // Envía los servicios como respuesta en formato JSON
-      res.json(services);
-  } catch (error) {
-      console.error(error);
-      // Maneja los errores y devuelve una respuesta de error apropiada
-      res.status(400).json({ error: 'Error interno del servidor' });
-  }
+module.exports = {
+    postServiceHandler,
+    getAllService,
+    getServiceById,
+    postArrayServiceHandler,
 };
-
-module.exports = { postServiceHandler, getAllService, getServiceById, getAllServicesHandler };
