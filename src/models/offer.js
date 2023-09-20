@@ -35,6 +35,11 @@ module.exports = (sequelize) => {
                 type: DataTypes.ENUM("compra", "venta", "laboral"),
                 allowNull: false,
             },
+            price:{
+                type: DataTypes.INTEGER,
+                allowNull: false
+                
+            },
             deletedAt: {
                 type: DataTypes.DATE,
                 allowNull: true,
