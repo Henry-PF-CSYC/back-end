@@ -49,9 +49,12 @@ const getAllServicesController = async (
     max = 999999999999999
 ) => {
     let ordered;
+
     const services = await Service.findAll();
     const ofType = filterByType(services, type);
     const ofRange = filterByRange(ofType, min, max);
+
+    const totalPages = Math.ceil(ofRange.length / size);
 
     orderBy === "price"
         ? (ordered = orderByPrice(ofRange, order))
@@ -59,7 +62,7 @@ const getAllServicesController = async (
 
     const paginated = paginate(ordered, page, size);
 
-    return paginated;
+    return { totalPages, paginated };
 };
 
 module.exports = {

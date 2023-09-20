@@ -42,7 +42,6 @@ const getAdminController = async (req, res) => {
         where: { role: "admin" },
     });
 
-    console.log(admin);
     if (!admin) {
         throw new Error("No se encontró el administrador");
     }
