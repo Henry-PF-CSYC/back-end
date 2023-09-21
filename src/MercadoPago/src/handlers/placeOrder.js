@@ -11,25 +11,22 @@ mercadopago.configure({
 const placeOrder = async (req, res) => {
   try {
     // Obtención de los datos del formulario
-    const { id, name, description, image, stock, condition, price, quantity } = req.body
+    const { name, price, quantity } = req.body
     // Creación de la orden de compra
     let preference = {
       		items: [
       			{
-              id: id,
       				title: name,
-              image: image,
       				unit_price: price,
       				quantity: quantity,
-              description: description,
               currency_id: "ARS"
       			}
       		],
       // URLs de redirección después del pago (éxito, fallo y pendiente)
       back_urls: {
-        success: 'https://front-trendy-app.vercel.app/confirmation', // URL en caso de éxito
-        failure: 'https://front-trendy-app.vercel.app', // URL en caso de fallo
-        pending: 'https://front-trendy-app.vercel.app' // URL en caso de pendiente
+        success: 'https://front-end-nu45-git-dev-csyc.vercel.app/usuario', // URL en caso de éxito
+        failure: 'https://front-end-nu45-git-dev-csyc.vercel.app', // URL en caso de fallo
+        pending: 'https://front-end-nu45-git-dev-csyc.vercel.app' // URL en caso de pendiente
       }
       //*Forma que aparece en la api de mercado pago
       // auto_return "approved"
@@ -47,7 +44,7 @@ const placeOrder = async (req, res) => {
     // })
     console.log(response);
     //Respuesta exitosa con la preferencia creada
-    res.status(200).json({ response })
+    res.status(200).json( response )
   } catch (error) {
     res.status(400).json({ error: error.message })
   }
