@@ -45,7 +45,7 @@ const getOffersByUser = async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: "No se encontró ningún usuario" });
     }
-    const userOffer = await Offer.findAll({ where: { user_id: userEmail } });
+    const userOffer = await Offer.findAll({ paranoid: false, where:   { user_id: userEmail } });
     if (userOffer.length === 0) {
       return res.status(400).json({ message: "El usuario no tiene ofertas" });
     }
@@ -58,7 +58,7 @@ const getOffersByUser = async (req, res) => {
 const getOfferById = async (req, res) => {
   const offerId = req.params.id;
   try {
-    const offer = await Offer.findByPk(offerId);
+    const offer = await Offer.findByPk(offerId, { paranoid: false });
     if (!offer) {
       return res.status(400).json({ message: "No se encontró ninguna oferta" });
     }
@@ -67,6 +67,11 @@ const getOfferById = async (req, res) => {
     return res.status(400).json({ error: error.message });
   }
 };
+// Model.findOne({
+//   where: { id: id },
+//   paranoid: false
+// });
+
 const deleteOfferHandler = async (req, res) => {
   const offerId = req.params.id;
   try {
@@ -81,10 +86,25 @@ const deleteOfferHandler = async (req, res) => {
   }
 };
 
+const putOfferRestore =async (req, res) =>{
+  const offerId = req.params.id;
+  try {
+    const offer = await Offer.findByPk(offerId, { paranoid: false });
+    if (!offer) {
+      return res.status(400).json({ message: "No se encontró ninguna oferta" });
+    }
+    await offer.restore()
+    return res.status(200).json({ message: "oferta restaurada con éxito" });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+}
+
 module.exports = {
   postOfferHandler,
   getOfferHandler,
   getOffersByUser,
   deleteOfferHandler,
   getOfferById,
+  putOfferRestore
 };
