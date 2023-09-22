@@ -28,17 +28,15 @@ module.exports = (sequelize) => {
                 allowNull: false,
             },
             image: {
-                //todo: handle based on how firebase works
                 type: DataTypes.STRING,
             },
             type: {
-                type: DataTypes.ENUM("compra", "venta", "laboral"),
+                type: DataTypes.ENUM("compra", "venta", "se busca"),
                 allowNull: false,
             },
-            price:{
+            price: {
                 type: DataTypes.INTEGER,
-                allowNull: false
-                
+                allowNull: false,
             },
             deletedAt: {
                 type: DataTypes.DATE,

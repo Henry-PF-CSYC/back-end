@@ -5,7 +5,7 @@ const contactAdmin = async (name, phone, message) => {
     try {
         const admin = await User.findOne({
             where: {
-                role: "admin",
+                role: "contact_admin",
             },
         });
         const email = admin.email;
@@ -47,5 +47,22 @@ const contactAdmin = async (name, phone, message) => {
         throw error;
     }
 };
-
-module.exports = { contactAdmin };
+const setContactAdminController = async (admin_email) => {
+    try {
+        const admin = await User.findOne({
+            where: {
+                email: admin_email,
+                role: "admin",
+            },
+        });
+        if (!admin) {
+            throw new Error("Admin not found");
+        }
+        admin.role = "contact_admin";
+        await admin.save();
+        return admin;
+    } catch (error) {
+        throw error;
+    }
+};
+module.exports = { contactAdmin, setContactAdminController };

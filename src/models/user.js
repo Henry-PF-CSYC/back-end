@@ -32,10 +32,11 @@ module.exports = (sequelize) => {
                 allowNull: true,
             },
             role: {
-                type: DataTypes.ENUM("user", "admin"),
+                type: DataTypes.ENUM("user", "admin", "contact_admin"),
                 defaultValue: "user",
                 allowNull: false,
             },
+
             image: {
                 //TODO: handle based on how firebase works
                 type: DataTypes.STRING,

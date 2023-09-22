@@ -1,22 +1,19 @@
 const { Router } = require("express");
 const {
     createSubscription,
-    //getSubscriptions,
-    //getSubscriptionsByUserId,
-    //updateSubscriptionById,
-    //deleteSubscriptionById,
-    //getSubscriptionByEmail,
+    getSubscriptions,
+    getSubscriptionsByServiceId,
+    updateSubscriptionByServiceId,
+    deleteSubscriptionByServiceId,
+    getSubscriptionByUserEmail,
 } = require("../Handlers/subscriptionHandler");
 const subscriptionRouter = Router();
-
-//subscriptionRouter.get("/", getSubscriptions);
-//subscriptionRouter.get("/:id", getSubscriptionsByUserId);
-//subscriptionRouter.get("/:email", getSubscriptionByEmail);
-//
-//subscriptionRouter.put("/:id", updateSubscriptionById);
-
 subscriptionRouter.post("/", createSubscription);
+subscriptionRouter.get("/", getSubscriptions);
+subscriptionRouter.get("/user/:user_email", getSubscriptionByUserEmail);
+subscriptionRouter.get("/service/:service_id", getSubscriptionsByServiceId);
 
-//subscriptionRouter.delete("/:id", deleteSubscriptionById);
+subscriptionRouter.put("/:service_id", updateSubscriptionByServiceId);
+subscriptionRouter.delete("/:service_id", deleteSubscriptionByServiceId);
 
 module.exports = subscriptionRouter;

@@ -1,48 +1,15 @@
-const { Subscription, User, Service } = require("../db");
-
-const createSubscriptionController = async (
-    length_in_months,
-    user_email,
-    service_id
-) => {
-    const status = "active";
-    let due_date = new Date();
-
-    due_date.setMonth(due_date.getMonth() + parseInt(length_in_months));
-
-    const user = await User.findOne({ where: { email: user_email } });
-    if (!user) {
-        throw new Error("User not found");
-    }
-
-    const service = await Service.findByPk(service_id);
-    if (!service) {
-        throw new Error("Service not found");
-    }
-
-    const [subscription, created] = await Subscription.findOrCreate({
-        where: {
-            user_id: user.email,
-            service_id: service.id,
-        },
-        defaults: {
-            due_date,
-            status,
-        },
-    });
-    if (!created) {
-        throw new Error("Subscription already exists");
-    }
-    return subscription;
-};
-
-module.exports = { createSubscriptionController };
+const createSubscriptionsController = require("./subscription/createSubscriptionsController");
+const getSubscriptionsController = require("./subscription/getSubscriptionsController");
+const updateSubscriptionByServiceIdController = require("./subscription/updateSubscriptionByServiceIdController");
+const deleteSubscriptionByServiceIdController = require("./subscription/deleteSubscriptionByServiceIdController");
+const getSubscriptionByUserEmailController = require("./subscription/getSubscriptionByUserEmailController");
+const getSubscriptionsByServiceIdController = require("./subscription/getSubscriptionsByServiceIdController");
 
 module.exports = {
-    createSubscriptionController,
-    //getSubscriptionsController,
-    //getSubscriptionsByUserIdController,
-    //updateSubscriptionByIdController,
-    //deleteSubscriptionByIdController,
-    //getSubscriptionByEmailController,
+    createSubscriptionsController,
+    getSubscriptionsController,
+    updateSubscriptionByServiceIdController,
+    deleteSubscriptionByServiceIdController,
+    getSubscriptionByUserEmailController,
+    getSubscriptionsByServiceIdController,
 };

@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
         },
         due_date: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
         },
         status: {
             type: DataTypes.ENUM("active", "inactive", "overdue"),
