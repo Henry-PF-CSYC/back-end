@@ -1,3 +1,5 @@
+const paginate = require("./paginate");
+
 const filterByType = (services, type) => {
     if (!type) return services;
     return services.filter((service) => service.type == type);
@@ -27,12 +29,6 @@ const orderByPrice = (services, order) => {
     } else {
         return services;
     }
-};
-
-const paginate = (services, page, size) => {
-    const offset = (page - 1) * size;
-    const paginated = services.slice(offset).slice(0, size);
-    return paginated;
 };
 
 module.exports = {

@@ -1,4 +1,7 @@
-const { contactAdmin } = require("../Controllers/contactControllers");
+const {
+    contactAdmin,
+    setContactAdminController,
+} = require("../Controllers/contactControllers");
 
 const contactAdminHandler = async (req, res) => {
     const { name, phone, message } = req.body;
@@ -9,5 +12,13 @@ const contactAdminHandler = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
-
-module.exports = { contactAdminHandler };
+const setContactAdmin = async (req, res) => {
+    try {
+        const { admin_email } = req.params;
+        const info = await setContactAdminController(admin_email);
+        res.status(200).json(info);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+module.exports = { contactAdminHandler, setContactAdmin };

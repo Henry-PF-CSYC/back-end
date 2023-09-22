@@ -4,6 +4,7 @@ const {
     getAllUsersController,
     getUserByEmail,
     getAdminController,
+    getContactAdminController,
 } = require("../Controllers/userControllers");
 
 const getAdmin = async (req, res) => {
@@ -97,6 +98,7 @@ const creatUser = async (req, res) => {
         image,
     } = req.body;
     try {
+        const role = "user";
         const newUsers = await postUserControler(
             name,
             lastname,
@@ -107,12 +109,26 @@ const creatUser = async (req, res) => {
             address,
             status,
             dni,
-            image
+            image,
+            role
         );
         res.status(200).json(newUsers);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
-
-module.exports = { creatUser, getAllUsers, getAdmin, createAdmin };
+const getContactAdmin = async (req, res) => {
+    try {
+        const info = await getContactAdminController();
+        res.status(200).json(info);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+module.exports = {
+    creatUser,
+    getAllUsers,
+    getAdmin,
+    createAdmin,
+    getContactAdmin,
+};
