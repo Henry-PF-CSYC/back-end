@@ -14,11 +14,16 @@ const postUserControler = async (
     image,
     role
 ) => {
+    const nameCapitalized =
+        name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    const lastnameCapitalized =
+        lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase();
+
     const [user, created] = await User.findOrCreate({
         where: { email: email },
         defaults: {
-            name,
-            lastname,
+            name: nameCapitalized,
+            lastname: lastnameCapitalized,
             username,
             email,
             password,
@@ -45,9 +50,17 @@ const getUserByName = async (name) => {
     return user;
 };
 const getAdminController = async (req, res) => {
-    const admin = await User.findAll({
-        where: { role: "admin" },
-    });
+    //admin or contact_admin in role
+    const admin = await User.findAll(
+        {
+            where: {
+                role: {
+                    [Op.or]: ["admin", "contact_admin"],
+                },
+            },
+        },
+        { raw: true }
+    );
 
     if (!admin) {
         throw new Error("No se encontró el administrador");
@@ -55,16 +68,16 @@ const getAdminController = async (req, res) => {
     return admin;
 };
 const getAllUsersController = async () => {
-    //all wher role is not admin
+    //all wher role is not admin or contact_admin
     return await User.findAll(
         {
             where: {
                 role: {
-                    [Op.not]: "admin",
+                    [Op.not]: ["admin", "contact_admin"],
                 },
             },
         },
-        { raw: true }
+        { raw: true } //raw true to get only the data without metadata from sequelize
     );
 };
 

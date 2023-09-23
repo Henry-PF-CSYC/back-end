@@ -5,7 +5,7 @@
         "description": "Nuestra red eléctrica está diseñada para que tengas un suministro constante de energía. \nNo tendrás que preocuparte por cortes inesperados que interrumpan tus actividades. Unete hoy para disfrutar de todos los beneficios de una energia limpia!",
         "provider": "?",
         "price": 5000,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2Fluz.webp?alt=media&token=4896a04e-ca60-4e46-80e0-0569c1c7a5c5",
         "status": "available"
     },
 
@@ -15,37 +15,7 @@
         "description": "Nuestro servicio de gas te brinda la comodidad y el calor que necesitas en tu hogar.Calidez y seguridad garantizada, pedilo hoy!",
         "provider": "?",
         "price": 9000,
-        "image": "local x el momento",
-        "status": "available"
-    },
-
-    {
-        "type": "internet",
-        "name": "10 Megas",
-        "description": "Plan básico con una velocidad estándar para uso cotidiano, que es ideal para 3 o 4 dispositivos\nsimultaneos!",
-        "provider": "?",
-        "price": 4000,
-        "image": "local x el momento",
-        "status": "available"
-    },
-
-    {
-        "type": "internet",
-        "name": "50 Megas",
-        "description": "10 megas no son suficientes? Te ofrecemos este plan para que puedas expandirte aun más, de 5 a 6 dispositivos!",
-        "provider": "?",
-        "price": 6000,
-        "image": "local x el momento",
-        "status": "available"
-    },
-
-    {
-        "type": "internet",
-        "name": "100 Megas",
-        "description": "Nuestro plan más potente, para más de 7 dispositivos. Olvidate de los cortes y restricciones. Usar con precaución!",
-        "provider": "?",
-        "price": 9000,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2Fgas.webp?alt=media&token=4dcca108-2e1d-476e-91f4-1651891310bc",
         "status": "available"
     },
 
@@ -55,232 +25,277 @@
         "description": "Brindamos agua potable con altos estándares de calidad, comprometiéndonos con el futuro de las generaciones venideras.",
         "provider": "?",
         "price": 5000,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2Fagua.jpg?alt=media&token=9e8aec0b-4b9a-4698-9b7d-f20e237f0c7e",
         "status": "available"
     },
 
-    {
-        "type": "cable",
-        "name": "Básico",
-        "description": "Plan básico con 40 canales, para chicos y adultos de todas las edades!",
-        "provider": "?",
-        "price": 2500,
-        "image": "local x el momento",
-        "status": "available"
-    },
-
-    {
-        "type": "cable",
-        "name": "Intermedio",
-        "description": "Plan intermedio con 70 canales, incluido el pack de deportes!",
-        "provider": "?",
-        "price": 4000,
-        "image": "local x el momento",
-        "status": "available"
-    },
-
-    {
-        "type": "cable",
-        "name": "Plus+",
-        "description": "Plan con 100 canales, incluidos internacionales, deportes y muchos más!",
-        "provider": "?",
-        "price": 6000,
-        "image": "local x el momento",
-        "status": "available"
-    },
-
-    {
-        "type": "telefonia",
-        "name": "Telefonia fija",
-        "description": "Ideal para el hogar, plan estándar con todos los beneficios!",
-        "provider": "?",
-        "price": 1500,
-        "image": "local x el momento",
-        "status": "available"
-    },
-
-    {
-        "type": "telefonia",
-        "name": "Telefonia movil",
-        "description": "Telefonia móvil, con 5gb para navegar y Whatsapp gratis!",
-        "provider": "?",
-        "price": 2000,
-        "image": "local x el momento",
-        "status": "available"
-    },
-
-    {
-        "type": "telefonia",
-        "name": "Conexion Ilimitada",
-        "description": "Telefonia fija y movil, ideal para siempre estar comunicado!",
-        "provider": "?",
-        "price": 3000,
-        "image": "local x el momento",
-        "status": "available"
-    },
-
-    {
-        "type": "streaming",
-        "name": "Netflix & Disney+",
-        "description": "Pack estándar para disfrutar series y películas de calidad!",
-        "provider": "?",
-        "price": 1000,
-        "image": "local x el momento",
-        "status": "available"
-    },
-
-    {
-        "type": "streaming",
-        "name": "Pack 4 en 1",
-        "description": "4 servicios. 4 formas de disfrutar miles de éxitos!",
-        "provider": "?",
-        "price": 1500,
-        "image": "local x el momento",
-        "status": "available"
-    },
-
-    {
-        "type": "streaming",
-        "name": "Pack cine",
-        "description": "Con este plan, aburrirse será tarea dificil, 6 servicios y más en camino.",
-        "provider": "?",
-        "price": 2000,
-        "image": "local x el momento",
-        "status": "available"
-    },
-    {
-        "type": "luz",
-        "name": "Electricidad",
-        "description": "Nuestra red eléctrica está diseñada para que tengas un suministro constante de energía. \nNo tendrás que preocuparte por cortes inesperados que interrumpan tus actividades. Unete hoy para disfrutar de todos los beneficios de una energia limpia!",
-        "provider": "?",
-        "price": 5000,
-        "image": "local x el momento",
-        "status": "available"
-    },
-    {
-        "type": "gas",
-        "name": "Gas natural",
-        "description": "Nuestro servicio de gas te brinda la comodidad y el calor que necesitas en tu hogar.Calidez y seguridad garantizada, pedilo hoy!",
-        "provider": "?",
-        "price": 9000,
-        "image": "local x el momento",
-        "status": "available"
-    },
     {
         "type": "internet",
         "name": "10 Megas",
         "description": "Plan básico con una velocidad estándar para uso cotidiano, que es ideal para 3 o 4 dispositivos\nsimultaneos!",
         "provider": "?",
         "price": 4000,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FInternet%2Finternet-plan1.webp?alt=media&token=b90ee696-b847-43c3-819d-73b94561ad06",
         "status": "available"
     },
+
     {
         "type": "internet",
         "name": "50 Megas",
         "description": "10 megas no son suficientes? Te ofrecemos este plan para que puedas expandirte aun más, de 5 a 6 dispositivos!",
         "provider": "?",
         "price": 6000,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FInternet%2Finternet-plan2.jpg?alt=media&token=7c224d4f-e3aa-4f98-88c1-82a07d29c0ec",
         "status": "available"
     },
+
     {
         "type": "internet",
         "name": "100 Megas",
         "description": "Nuestro plan más potente, para más de 7 dispositivos. Olvidate de los cortes y restricciones. Usar con precaución!",
         "provider": "?",
         "price": 9000,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FInternet%2Finternet-plan3.jpg?alt=media&token=99046a49-7b8b-40fa-8582-60a1ad633f57",
         "status": "available"
     },
-    {
-        "type": "agua",
-        "name": "Agua Potable",
-        "description": "Brindamos agua potable con altos estándares de calidad, comprometiéndonos con el futuro de las generaciones venideras.",
-        "provider": "?",
-        "price": 5000,
-        "image": "local x el momento",
-        "status": "available"
-    },
+
     {
         "type": "cable",
         "name": "Básico",
         "description": "Plan básico con 40 canales, para chicos y adultos de todas las edades!",
         "provider": "?",
         "price": 2500,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FCable%2Fcable-plan1.webp?alt=media&token=0685fefa-40ff-4f78-a0f7-7818b93085aa",
         "status": "available"
     },
+
     {
         "type": "cable",
         "name": "Intermedio",
         "description": "Plan intermedio con 70 canales, incluido el pack de deportes!",
         "provider": "?",
         "price": 4000,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FCable%2Fcable-plan2.jpg?alt=media&token=27282670-b581-4e61-9d75-856582a1ba23",
         "status": "available"
     },
+
     {
         "type": "cable",
         "name": "Plus+",
         "description": "Plan con 100 canales, incluidos internacionales, deportes y muchos más!",
         "provider": "?",
         "price": 6000,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FCable%2Fcable-plan3.jpg?alt=media&token=5bf84962-310b-4d88-b625-25599344ec77",
         "status": "available"
     },
+
     {
         "type": "telefonia",
         "name": "Telefonia fija",
         "description": "Ideal para el hogar, plan estándar con todos los beneficios!",
         "provider": "?",
         "price": 1500,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FTelefonia%2Ftelefonia-plan1.jpg?alt=media&token=87df61ef-f2b3-498b-8233-da53b128f39c",
         "status": "available"
     },
+
     {
         "type": "telefonia",
         "name": "Telefonia movil",
         "description": "Telefonia móvil, con 5gb para navegar y Whatsapp gratis!",
         "provider": "?",
         "price": 2000,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FTelefonia%2Ftelefonia-plan2.jpg?alt=media&token=5b3dcfdd-07f2-4cf4-ba45-f21624e449b0",
         "status": "available"
     },
+
     {
         "type": "telefonia",
         "name": "Conexion Ilimitada",
         "description": "Telefonia fija y movil, ideal para siempre estar comunicado!",
         "provider": "?",
         "price": 3000,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FTelefonia%2Ftelefonia-plan3.webp?alt=media&token=73cfff8e-d4ea-402a-b717-c6b5c9e72428",
         "status": "available"
     },
+
+    {
+        "type": "telefonia",
+        "name": "Movil 1",
+        "description": "Plan de telefonia movil con 5GB de datos y llamadas ilimitadas.",
+        "provider": "?",
+        "price": 2000,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FTelefonia%2Ftelefonia-plan4.jpg?alt=media&token=eb0bb229-62e9-4737-84c1-403afbcbb2c6",
+        "status": "available"
+    },
+
+    {
+        "type": "telefonia",
+        "name": "Movil 2",
+        "description": "Telefonia móvil con 10GB de datos y redes sociales ilimitadas.",
+        "provider": "?",
+        "price": 2500,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FTelefonia%2Ftelefonia-plan5.jpeg?alt=media&token=a55b9cfa-cbd9-4b22-8146-821c69707d0b",
+        "status": "available"
+    },
+
+    {
+        "type": "telefonia",
+        "name": "Movil 3",
+        "description": "Plan telefonia móvil con 15GB de datos y llamadas nacionales e internacionales.",
+        "provider": "?",
+        "price": 3000,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FTelefonia%2Ftelefonia-plan6.png?alt=media&token=6c41083e-5887-4a2d-84b4-701fe5374116",
+        "status": "available"
+    },
+
+    {
+        "type": "telefonia",
+        "name": "Movil 4",
+        "description": "Telefonia móvil con 20GB de datos y roaming internacional incluido.",
+        "provider": "?",
+        "price": 3500,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FTelefonia%2Ftelefonia-plan7.png?alt=media&token=dd320e6f-45cd-4d84-a19d-0e13eb3c2201",
+        "status": "available"
+    },
+
+    {
+        "type": "telefonia",
+        "name": "Movil 5",
+        "description": "Plan telefonia móvil con 25GB de datos y llamadas y mensajes ilimitados.",
+        "provider": "?",
+        "price": 4000,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FTelefonia%2Ftelefonia-plan8.webp?alt=media&token=2103c450-c9ab-4173-be6d-d54594077057",
+        "status": "available"
+    },
+
+    {
+        "type": "telefonia",
+        "name": "Movil 6",
+        "description": "Telefonia móvil con 30GB de datos y acceso a apps de música sin consumir datos.",
+        "provider": "?",
+        "price": 4500,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FTelefonia%2Ftelefonia-plan9.jpg?alt=media&token=2b94bfa3-0c94-4be2-85f9-ee64e0f78cd4",
+        "status": "available"
+    },
+
+    {
+        "type": "telefonia",
+        "name": "Movil 7",
+        "description": "Plan telefonia móvil con 35GB de datos y llamadas ilimitadas a números favoritos.",
+        "provider": "?",
+        "price": 5000,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FTelefonia%2Ftelefonia-plan10.webp?alt=media&token=c578ed3a-90c6-46bf-aaf3-8c7ba518a130",
+        "status": "available"
+    },
+
+    {
+        "type": "telefonia",
+        "name": "Movil 8",
+        "description": "Telefonia móvil con 40GB de datos y minutos internacionales.",
+        "provider": "?",
+        "price": 5500,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FTelefonia%2Ftelefonia-plan11.jpg?alt=media&token=6c190f7f-3af6-4d1b-b46c-78d8353418c5",
+        "status": "available"
+    },
+
     {
         "type": "streaming",
         "name": "Netflix & Disney+",
         "description": "Pack estándar para disfrutar series y películas de calidad!",
         "provider": "?",
         "price": 1000,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FStreaming%2Fstreaming-plan1.jpg?alt=media&token=5a2aac9d-6e00-4741-9715-2e3d46c53ead",
         "status": "available"
     },
+
     {
         "type": "streaming",
         "name": "Pack 4 en 1",
         "description": "4 servicios. 4 formas de disfrutar miles de éxitos!",
         "provider": "?",
         "price": 1500,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FStreaming%2Fstreaming-plan2.webp?alt=media&token=cef7ce31-bd3e-4386-8230-12f16ae45fb0",
         "status": "available"
     },
+
     {
         "type": "streaming",
         "name": "Pack cine",
         "description": "Con este plan, aburrirse será tarea dificil, 6 servicios y más en camino.",
         "provider": "?",
         "price": 2000,
-        "image": "local x el momento",
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FStreaming%2Fstreaming-plan3.webp?alt=media&token=b16eca8a-2de3-4209-84bf-760f4bfaa7fe",
+        "status": "available"
+    },
+
+    {
+        "type": "streaming",
+        "name": "Spotify Premium",
+        "description": "Escucha tu música favorita sin anuncios con este servicio de streaming de música.",
+        "provider": "?",
+        "price": 900,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FStreaming%2Fstreaming-plan4.png?alt=media&token=7e312e8c-149d-40b4-b108-0b32e527a723",
+        "status": "available"
+    },
+
+    {
+        "type": "streaming",
+        "name": "YouTube Premium",
+        "description": "Disfruta de videos sin anuncios y descargas offline con este servicio de streaming.",
+        "provider": "?",
+        "price": 950,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FStreaming%2Fstreaming-plan5.jpg?alt=media&token=9e1b2735-76fe-44de-ad24-6971b3c49338",
+        "status": "available"
+    },
+
+    {
+        "type": "streaming",
+        "name": "Apple TV+",
+        "description": "Disfruta de contenido exclusivo y originales con este servicio de streaming.",
+        "provider": "?",
+        "price": 1000,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FStreaming%2Fstreaming-plan6.png?alt=media&token=f0ddb7e9-5949-4d5b-abe5-481dabca20a8",
+        "status": "available"
+    },
+
+    {
+        "type": "streaming",
+        "name": "Disney+",
+        "description": "Accede a películas y series de Disney con este servicio de streaming.",
+        "provider": "?",
+        "price": 1000,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FStreaming%2Fstreaming-plan7.webp?alt=media&token=bb27ce1d-d693-48f8-8bd8-368ff3d1ed54",
+        "status": "available"
+    },
+
+    {
+        "type": "streaming",
+        "name": "Amazon Prime Video",
+        "description": "Accede a una gran variedad de contenido de video con este servicio de streaming.",
+        "provider": "?",
+        "price": 1100,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FStreaming%2Fstreaming-plan8.png?alt=media&token=2eb65323-4b2c-4aa8-8bf9-291c81a4cfe7",
+        "status": "available"
+    },
+
+    {
+        "type": "streaming",
+        "name": "Netflix",
+        "description": "Disfruta de series y películas populares con este servicio de streaming.",
+        "provider": "?",
+        "price": 1100,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FStreaming%2Fstreaming-plan9.jpg?alt=media&token=cbbc6150-1bf4-4cb9-8303-e0e32c2679df",
+        "status": "available"
+    },
+
+    {
+        "type": "streaming",
+        "name": "HBO",
+        "description": "Disfruta de tus series y películas favoritas con este servicio de streaming.",
+        "provider": "?",
+        "price": 1200,
+        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FStreaming%2Fstreaming-plan10.png?alt=media&token=060489aa-6bb8-4ec0-b614-31f2649a8139",
         "status": "available"
     }
 ]

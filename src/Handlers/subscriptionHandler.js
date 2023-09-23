@@ -2,8 +2,8 @@ const {
     createSubscriptionsController,
     getSubscriptionsController,
     getSubscriptionsByServiceIdController,
-    updateSubscriptionByServiceIdController,
-    deleteSubscriptionByServiceIdController,
+    updateSubscriptionByIdController,
+    deleteSubscriptionsController,
     getSubscriptionByUserEmailController,
 } = require("../Controllers/subscriptionControllers");
 
@@ -52,19 +52,20 @@ const updateSubscriptionByServiceId = async (req, res) => {
         const { service_id } = req.params;
 
         const { statusCode, subscription } =
-            await updateSubscriptionByServiceIdController(service_id);
+            await updateSubscriptionByIdController(service_id);
         res.status(statusCode).send(subscription);
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
 };
 
-const deleteSubscriptionByServiceId = async (req, res) => {
+const deleteSubscriptions = async (req, res) => {
     try {
-        const { service_id } = req.params;
+        const { user_email, service_ids } = req.body;
+        const { hard } = req.query;
 
         const { statusCode, message, subscription } =
-            await deleteSubscriptionByServiceIdController(service_id);
+            await deleteSubscriptionsController(user_email, service_ids, hard);
         res.status(statusCode).send({ message, subscription });
     } catch (error) {
         res.status(500).send({ message: error.message });
@@ -117,7 +118,7 @@ module.exports = {
     createSubscription,
     getSubscriptions,
     updateSubscriptionByServiceId,
-    deleteSubscriptionByServiceId,
+    deleteSubscriptions,
     getSubscriptionByUserEmail,
     getSubscriptionsByServiceId,
 };
