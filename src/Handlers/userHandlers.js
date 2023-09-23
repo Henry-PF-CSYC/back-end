@@ -84,6 +84,7 @@ const createAdmin = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+
 const creatUser = async (req, res) => {
     const {
         name,

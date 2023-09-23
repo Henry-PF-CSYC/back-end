@@ -25,18 +25,7 @@ const getSubscriptionsController = async (
         if (!size) {
             size = 10;
         }
-        let subscriptions = await Subscription.findAll({
-            include: [
-                {
-                    model: User,
-                    attributes: ["name", "email"],
-                },
-                {
-                    model: Service,
-                    attributes: ["id", "name"],
-                },
-            ],
-        });
+        let subscriptions = await Subscription.findAll();
         subscriptions = filterByDueDate(subscriptions, due_date);
         subscriptions = filterByStatus(subscriptions, status);
         subscriptions = filterByUser(subscriptions, user);

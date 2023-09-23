@@ -58,6 +58,15 @@ const setContactAdminController = async (admin_email) => {
         if (!admin) {
             throw new Error("Admin not found");
         }
+        const previous_contact_admin = await User.findOne({
+            where: {
+                role: "contact_admin",
+            },
+        });
+        if (previous_contact_admin) {
+            previous_contact_admin.role = "admin";
+            await previous_contact_admin.save();
+        }
         admin.role = "contact_admin";
         await admin.save();
         return admin;

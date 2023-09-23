@@ -39,7 +39,7 @@ const getServiceByNameController = async (name) => {
     return service;
 };
 
-const getAllServicesController = async (
+const getNonDeletedsController = async (
     page = 1,
     size = 3,
     type = null,
@@ -68,6 +68,6 @@ const getAllServicesController = async (
 module.exports = {
     postServiceController,
     getServiceByNameController,
-    getAllServicesController,
+    getNonDeletedsController,
     postArrayServiceController,
 };

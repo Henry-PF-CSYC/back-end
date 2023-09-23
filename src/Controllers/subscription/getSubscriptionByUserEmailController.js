@@ -34,7 +34,7 @@ const getSubscriptionByUserEmailController = async (
             include: [
                 {
                     model: User,
-                    attributes: ["name", "email"],
+                    attributes: ["email"],
                 },
                 {
                     model: Service,

@@ -36,7 +36,6 @@ module.exports = (sequelize) => {
                 defaultValue: "user",
                 allowNull: false,
             },
-
             image: {
                 //TODO: handle based on how firebase works
                 type: DataTypes.STRING,
