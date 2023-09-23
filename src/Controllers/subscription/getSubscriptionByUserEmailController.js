@@ -59,9 +59,7 @@ const getSubscriptionByUserEmailController = async (
                 subscriptions = orderByDueDate(subscriptions, direction);
                 break;
         }
-        console.log(subscriptions);
         const paginatedSubscriptions = paginate(subscriptions, page, size);
-        console.log(paginatedSubscriptions);
 
         return {
             statusCode: 200,

@@ -21,7 +21,6 @@ const getSubscriptionsByServiceIdController = async (
 ) => {
     /*      */
     try {
-        console.log("service_id", service_id);
         const service = await Service.findOne({
             where: { id: service_id },
         });

@@ -53,7 +53,6 @@ const createSubscriptionsController = async (user_email, service_ids) => {
                 message: "Error creating subscriptions",
             };
         }
-        console.log(foundCreatedOrUpdatedSubscriptions);
 
         // Send email notification
         await notificationSendHelper(user, services, due_date);
