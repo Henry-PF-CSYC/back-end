@@ -56,11 +56,25 @@ const createSubscriptionsController = async (user_email, service_ids) => {
 
         // Send email notification
         await notificationSendHelper(user, services, due_date);
-
+        //pull out the id of the created subscriptions
+        const subscription_ids = foundCreatedOrUpdatedSubscriptions.map(
+            (subscription) => subscription.id
+        );
+        //find the created subscriptions and pull the description attribute of each service
+        const foundSubscriptions = await Subscription.findAll({
+            where: { id: subscription_ids },
+            attributes: ["id", "due_date", "status", "user_service_pair"],
+            include: [
+                {
+                    model: Service,
+                    attributes: ["description", "name", "image"],
+                },
+            ],
+        });
         return {
             statusCode: 201,
             message: "Subscriptions created or updated",
-            subscriptions: foundCreatedOrUpdatedSubscriptions,
+            subscriptions: foundSubscriptions,
         };
     } catch (error) {
         return {
