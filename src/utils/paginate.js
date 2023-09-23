@@ -1,4 +1,4 @@
-const paginate = (array, page = 1, size = 2) => {
+const paginate = (array, page, size) => {
     const offset = page * size - size;
     return array.slice(offset, offset + size);
 };
