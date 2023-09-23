@@ -1,53 +1,29 @@
-const mercadopago = require('mercadopago')
-require('dotenv').config()
-const { ACCESS_TOKEN } = process.env
+const mercadopago = require("mercadopago");
+require("dotenv").config();
+const { ACCESS_TOKEN, FRONT_END_URL } = process.env;
 
-//Configuración de las credenciales de acceso a la API de Mercado Pago
 mercadopago.configure({
-  access_token: ACCESS_TOKEN,
-})
+    access_token: ACCESS_TOKEN,
+});
 
-// Definición de la función asincrónica que maneja la creación de la orden de compra
 const placeOrder = async (req, res) => {
-  try {
-    // Obtención de los datos del formulario
-    const { name, price, quantity } = req.body
-    // Creación de la orden de compra
-    let preference = {
-      		items: [
-      			{
-      				title: name,
-      				unit_price: price,
-      				quantity: quantity,
-              currency_id: "ARS"
-      			}
-      		],
-      // URLs de redirección después del pago (éxito, fallo y pendiente)
-      back_urls: {
-        success: 'https://front-end-nu45-git-dev-csyc.vercel.app/usuario', // URL en caso de éxito
-        failure: 'https://front-end-nu45-git-dev-csyc.vercel.app', // URL en caso de fallo
-        pending: 'https://front-end-nu45-git-dev-csyc.vercel.app' // URL en caso de pendiente
-      }
-      //*Forma que aparece en la api de mercado pago
-      // auto_return "approved"
-    };
+    try {
+        const items = req.body;
 
-    // Creación de la preferencia de pago en Mercado Pago
-    const response = await mercadopago.preferences.create(preference)
+        let preference = {
+            back_urls: {
+                success: `${FRONT_END_URL}/usuario`, // URL en caso de éxitoURL en caso de pendiente
+                //pending: "http://localhost:3000/pending", // URL en caso de pendiente
+                //failure: "http://localhost:3000/failed", // URL en caso de error
+            },
+            items,
+        };
 
-    //* Forma que esta en la api de mercado pago 
-    // mercadopago.preferences.create(preference)
-    // .then(funcition (response) {
-    //   res.json({
-    //     id: response.body.id
-    //   })
-    // })
-    console.log(response);
-    //Respuesta exitosa con la preferencia creada
-    res.status(200).json( response )
-  } catch (error) {
-    res.status(400).json({ error: error.message })
-  }
+        const response = await mercadopago.preferences.create(preference);
+        res.status(200).json({ response });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 };
 
-module.exports = placeOrder
+module.exports = placeOrder;
