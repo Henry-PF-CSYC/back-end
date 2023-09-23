@@ -169,7 +169,6 @@ const restoreServiceHandler = async (req, res) => {
 const deleteArrayServiceHandler = async (req, res) => {
     const { hard } = req.query;
     const { array } = req.body;
-    console.log(array);
     try {
         const deletedServices = await deleteArrayServicesController(
             array,
