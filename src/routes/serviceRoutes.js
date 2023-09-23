@@ -26,7 +26,7 @@ serviceRouter.put("/:id", updateServiceHandler);
 serviceRouter.delete("/delete/:id", deleteServiceHandler);
 serviceRouter.put("/restore/:id", restoreServiceHandler);
 
-serviceRouter.delete("/delete/array", deleteArrayServiceHandler);
-serviceRouter.put("/restore/array", restoreArrayServiceHandler);
+serviceRouter.post("/delete/array", deleteArrayServiceHandler);
+serviceRouter.post("/restore/array", restoreArrayServiceHandler);
 
 module.exports = serviceRouter;

@@ -3,8 +3,13 @@ const { Service } = require("../db");
 const {
     postServiceController,
     getServiceByNameController,
-    getNonDeletedsController,
+    getNonDeletedServicesController,
     postArrayServiceController,
+
+    deleteServiceController,
+    restoreServiceController,
+    deleteArrayServicesController,
+    restoreArrayServicesController,
 } = require("../Controllers/serviceControllers");
 
 const postServiceHandler = async (req, res) => {
@@ -44,15 +49,16 @@ const getNonDeleted = async (req, res) => {
             service = await getServiceByNameController(name);
             count = Math.ceil(service.length / size);
         } else {
-            const { totalPages, paginated } = await getNonDeletedsController(
-                page,
-                size,
-                type,
-                order,
-                orderBy,
-                min,
-                max
-            );
+            const { totalPages, paginated } =
+                await getNonDeletedServicesController(
+                    page,
+                    size,
+                    type,
+                    order,
+                    orderBy,
+                    min,
+                    max
+                );
             service = paginated;
             count = totalPages;
         }
@@ -131,35 +137,15 @@ const updateServiceHandler = async (req, res) => {
 
 const deleteServiceHandler = async (req, res) => {
     const { id } = req.params;
+    const { hard } = req.query;
     try {
-        const service = await Service.findOne({
-            where: { id: id },
-        });
-        if (!service) {
+        const deletedService = await deleteServiceController(id, hard);
+        if (!deletedService) {
             return res
                 .status(400)
                 .json({ message: "No se encontro el servicio" });
         }
-        await service.destroy();
-        return res.status(200).json({ message: "Servicio eliminado" });
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-};
-
-const deleteArrayServiceHandler = async (req, res) => {
-    const { array } = req.body;
-    try {
-        const services = await Service.findAll({
-            where: { id: array },
-        });
-        if (!services) {
-            return res
-                .status(400)
-                .json({ message: "No se encontraron servicios" });
-        }
-        await services.destroy();
-        return res.status(200).json({ message: "Servicios eliminados" });
+        return res.status(200).json(deletedService);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -168,17 +154,33 @@ const deleteArrayServiceHandler = async (req, res) => {
 const restoreServiceHandler = async (req, res) => {
     const { id } = req.params;
     try {
-        const service = await Service.findOne({
-            where: { id: id },
-            paranoid: false,
-        });
-        if (!service) {
+        const restoredService = await restoreServiceController(id);
+        if (!restoredService) {
             return res
                 .status(400)
                 .json({ message: "No se encontro el servicio" });
         }
-        await service.restore();
-        return res.status(200).json({ message: "Servicio restaurado" });
+        return res.status(200).json(restoredService);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+const deleteArrayServiceHandler = async (req, res) => {
+    const { hard } = req.query;
+    const { array } = req.body;
+    console.log(array);
+    try {
+        const deletedServices = await deleteArrayServicesController(
+            array,
+            hard
+        );
+        if (!deletedServices) {
+            return res
+                .status(400)
+                .json({ message: "No se encontraron los servicios" });
+        }
+        return res.status(200).json(deletedServices);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -187,17 +189,13 @@ const restoreServiceHandler = async (req, res) => {
 const restoreArrayServiceHandler = async (req, res) => {
     const { array } = req.body;
     try {
-        const services = await Service.findAll({
-            where: { id: array },
-            paranoid: false,
-        });
-        if (!services) {
+        const restoredServices = await restoreArrayServicesController(array);
+        if (!restoredServices) {
             return res
                 .status(400)
                 .json({ message: "No se encontraron los servicios" });
         }
-        await services.restore();
-        return res.status(200).json({ message: "Servicios restaurados" });
+        return res.status(200).json(restoredServices);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -211,9 +209,9 @@ module.exports = {
 
     getAllServices,
     updateServiceHandler,
-    deleteServiceHandler,
-    deleteArrayServiceHandler,
 
+    deleteServiceHandler,
     restoreServiceHandler,
+    deleteArrayServiceHandler,
     restoreArrayServiceHandler,
 };

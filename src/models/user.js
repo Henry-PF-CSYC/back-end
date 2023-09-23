@@ -49,9 +49,6 @@ module.exports = (sequelize) => {
         },
         {
             paranoid: true,
-            timestamps: true,
-            underscored: true,
-            tableName: "users",
         }
     );
 };
