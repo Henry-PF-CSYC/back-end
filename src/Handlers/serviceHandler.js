@@ -71,6 +71,7 @@ const getNonDeleted = async (req, res) => {
 
         return res.status(200).json({ count, service });
     } catch (error) {
+        console.log(error);
         res.status(400).json({ error: error.message });
     }
 };
