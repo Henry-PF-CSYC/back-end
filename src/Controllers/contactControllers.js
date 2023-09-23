@@ -34,7 +34,6 @@ const contactAdmin = async (name, phone, message) => {
             subject: "Contacto de usuario",
             html: html,
         };
-        //send email with error handling
         const info = await transporter
             .sendMail({
                 ...mailOptions,
