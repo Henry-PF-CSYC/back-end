@@ -5,8 +5,29 @@ const {
     getUserByEmail,
     getAdminController,
     getContactAdminController,
+    banUserController,
+    userDeleteAccountController,
 } = require("../Controllers/userControllers");
+const banOrUnbanUser = async (req, res) => {
+    const { user_email } = req.params;
+    const { type } = req.query;
 
+    try {
+        const user = await banUserController(user_email, type);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+const userDeleteAccount = async (req, res) => {
+    const { user_email } = req.params;
+    try {
+        const user = await userDeleteAccountController(user_email);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
 const getAdmin = async (req, res) => {
     try {
         const admin = await getAdminController();
@@ -85,7 +106,7 @@ const createAdmin = async (req, res) => {
     }
 };
 
-const creatUser = async (req, res) => {
+const createUser = async (req, res) => {
     const {
         name,
         lastname,
@@ -127,9 +148,11 @@ const getContactAdmin = async (req, res) => {
     }
 };
 module.exports = {
-    creatUser,
+    createUser,
     getAllUsers,
     getAdmin,
     createAdmin,
     getContactAdmin,
+    banOrUnbanUser,
+    userDeleteAccount,
 };

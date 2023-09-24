@@ -24,7 +24,7 @@ const createSubscriptionsController = async (user_email, service_ids) => {
         }
         const user_service_pairs = [];
         const subscriptions = [];
-        let due_date = new Date(); //set due next month at 20:00
+        let due_date = new Date();
         due_date.setMonth(due_date.getMonth() + 1);
         due_date.setHours(20);
         due_date.setMinutes(0);
@@ -54,13 +54,10 @@ const createSubscriptionsController = async (user_email, service_ids) => {
             };
         }
 
-        // Send email notification
         await notificationSendHelper(user, services, due_date);
-        //pull out the id of the created subscriptions
         const subscription_ids = foundCreatedOrUpdatedSubscriptions.map(
             (subscription) => subscription.id
         );
-        //find the created subscriptions and pull the description attribute of each service
         const foundSubscriptions = await Subscription.findAll({
             where: { id: subscription_ids },
             attributes: ["id", "due_date", "status", "user_service_pair"],
@@ -92,7 +89,7 @@ const notificationSendHelper = async (user, services, due_date) => {
         auth: {
             user: process.env.EMAIL_APP,
             pass: process.env.EMAIL_PASSWORD,
-            authMethod: "PLAIN", // or "XOAUTH2"
+            authMethod: "PLAIN",
         },
     });
 
@@ -109,7 +106,7 @@ const notificationSendHelper = async (user, services, due_date) => {
             `
                 )
                 .join("")}
-        </ul>`;
+            </ul>`;
     const mailOptions = {
         from: process.env.EMAIL_APP,
         to: user.email,
