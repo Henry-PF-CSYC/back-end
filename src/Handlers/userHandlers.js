@@ -7,6 +7,8 @@ const {
     getContactAdminController,
     banUserController,
     userDeleteAccountController,
+    setUnsetUserAsAdminController,
+    getAdminByEmailController,
 } = require("../Controllers/userControllers");
 const banOrUnbanUser = async (req, res) => {
     const { user_email } = req.params;
@@ -147,6 +149,28 @@ const getContactAdmin = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+
+const setUnsetUserAsAdmin = async (req, res) => {
+    const { admin_email } = req.params;
+    const { type } = req.query;
+    try {
+        const admin = await setUnsetUserAsAdminController(admin_email, type);
+        res.status(200).json(admin);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+const getAdminByEmail = async (req, res) => {
+    const { admin_email } = req.params;
+    try {
+        const admin = await getAdminByEmailController(admin_email);
+        res.status(200).json(admin);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 module.exports = {
     createUser,
     getAllUsers,
@@ -155,4 +179,7 @@ module.exports = {
     getContactAdmin,
     banOrUnbanUser,
     userDeleteAccount,
+
+    setUnsetUserAsAdmin,
+    getAdminByEmail,
 };
