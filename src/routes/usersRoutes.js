@@ -12,20 +12,20 @@ const {
     getAdminByEmail,
 } = require("../Handlers/userHandlers");
 
-const userrouter = Router();
+const userRouter = Router();
 
-userrouter.get("/", getAllUsers);
-userrouter.post("/", createUser);
+userRouter.get("/", getAllUsers);
+userRouter.post("/", createUser);
 
-userrouter.get("/admin", getAdmin);
+userRouter.get("/admin", getAdmin);
 
-userrouter.post("/admin", createAdmin);
-userrouter.get("/admin/:admin_email", getAdminByEmail);
-userrouter.put("/admin/:admin_email", setUnsetUserAsAdmin);
+userRouter.post("/admin", createAdmin);
+userRouter.get("/admin/:admin_email", getAdminByEmail);
+userRouter.put("/admin/:admin_email", setUnsetUserAsAdmin);
 
-userrouter.get("/contact_admin", getContactAdmin);
+userRouter.get("/contact_admin", getContactAdmin);
 
-userrouter.put("/ban/:user_email", banOrUnbanUser);
+userRouter.put("/ban/:user_email", banOrUnbanUser);
 
-userrouter.delete("/delete/:user_email", userDeleteAccount);
-module.exports = userrouter;
+userRouter.delete("/delete/:user_email", userDeleteAccount);
+module.exports = userRouter;
