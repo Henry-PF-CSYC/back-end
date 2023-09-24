@@ -119,7 +119,7 @@ const getAllUsersController = async () => {
                 },
             },
         },
-        { raw: true } //raw true to get only the data without metadata from sequelize
+        { raw: true }
     );
 };
 
@@ -138,6 +138,45 @@ const getContactAdminController = async (req, res) => {
     }
     return contact_admin;
 };
+
+const setUnsetUserAsAdminController = async (user_email, type) => {
+    if (type === "set") {
+        const userToSet = await User.findByPk(user_email, {
+            paranoid: false,
+            raw: true,
+        });
+
+        if (!userToSet) {
+            throw new Error("No se encontró el usuario");
+        }
+
+        let userSet = await userToSet.update({ role: "admin" });
+
+        return userSet;
+    } else if (type === "unset") {
+        const userToUnset = await User.findByPk(user_email);
+
+        if (!userToUnset) {
+            throw new Error("No se encontró el usuario");
+        }
+
+        let userUnset = await userToUnset.update({ role: "user" });
+
+        return userUnset;
+    }
+};
+
+const getAdminByEmailController = async (user_email) => {
+    const admin = await User.findByPk(user_email, {
+        raw: true,
+        paranoid: false,
+    });
+    if (!admin) {
+        throw new Error("No se encontró el administrador");
+    }
+    return admin;
+};
+
 module.exports = {
     postUserControler,
     getUserByName,
@@ -147,4 +186,7 @@ module.exports = {
     getContactAdminController,
     banUserController,
     userDeleteAccountController,
+
+    setUnsetUserAsAdminController,
+    getAdminByEmailController,
 };
