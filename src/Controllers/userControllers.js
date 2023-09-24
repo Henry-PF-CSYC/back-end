@@ -4,7 +4,10 @@ const { Op } = require("sequelize");
 const banUserController = async (user_email, type) => {
     //ban or unban
     if (type === "ban") {
-        const userToBan = await User.findByPk(user_email);
+        const userToBan = await User.findOne({
+            where: { email: user_email },
+            paranoid: false,
+        });
 
         if (!userToBan) {
             throw new Error("No se encontró el usuario");
@@ -15,7 +18,8 @@ const banUserController = async (user_email, type) => {
 
         return bannedUser;
     } else if (type === "unban") {
-        const userToUnban = await User.findByPk(user_email, {
+        const userToUnban = await User.findOne({
+            where: { email: user_email },
             paranoid: false,
         });
 
@@ -31,7 +35,8 @@ const banUserController = async (user_email, type) => {
 };
 
 const userDeleteAccountController = async (user_email) => {
-    const userToDelete = await User.findByPk(user_email, {
+    const userToDelete = await User.findOne({
+        where: { email: user_email },
         paranoid: false,
     });
 
@@ -141,9 +146,8 @@ const getContactAdminController = async (req, res) => {
 
 const setUnsetUserAsAdminController = async (user_email, type) => {
     if (type === "set") {
-        const userToSet = await User.findByPk(user_email, {
-            paranoid: false,
-            raw: true,
+        const userToSet = await User.findOne({
+            where: { email: user_email },
         });
 
         if (!userToSet) {
@@ -154,8 +158,9 @@ const setUnsetUserAsAdminController = async (user_email, type) => {
 
         return userSet;
     } else if (type === "unset") {
-        const userToUnset = await User.findByPk(user_email);
-
+        const userToUnset = await User.findOne({
+            where: { email: user_email },
+        });
         if (!userToUnset) {
             throw new Error("No se encontró el usuario");
         }
@@ -167,8 +172,8 @@ const setUnsetUserAsAdminController = async (user_email, type) => {
 };
 
 const getAdminByEmailController = async (user_email) => {
-    const admin = await User.findByPk(user_email, {
-        raw: true,
+    const admin = await User.findOne({
+        where: { email: user_email },
         paranoid: false,
     });
     if (!admin) {
