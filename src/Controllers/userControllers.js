@@ -1,6 +1,48 @@
 const { User } = require("../db");
 const { Op } = require("sequelize");
 
+const banUserController = async (user_email, type) => {
+    //ban or unban
+    if (type === "ban") {
+        const userToBan = await User.findByPk(user_email);
+
+        if (!userToBan) {
+            throw new Error("No se encontró el usuario");
+        }
+
+        let bannedUser = await userToBan.update({ role: "banned" });
+        bannedUser = await userToBan.destroy();
+
+        return bannedUser;
+    } else if (type === "unban") {
+        const userToUnban = await User.findByPk(user_email, {
+            paranoid: false,
+        });
+
+        if (!userToUnban) {
+            throw new Error("No se encontró el usuario");
+        }
+
+        let unbannedUser = await userToUnban.update({ role: "user" });
+        unbannedUser = await userToUnban.restore();
+
+        return unbannedUser;
+    }
+};
+
+const userDeleteAccountController = async (user_email) => {
+    const userToDelete = await User.findByPk(user_email, {
+        paranoid: false,
+    });
+
+    if (!userToDelete) {
+        throw new Error("No se encontró el usuario");
+    }
+
+    let deletedUser = await userToDelete.destroy({ force: true });
+    return deletedUser;
+};
+
 const postUserControler = async (
     name,
     lastname,
@@ -103,4 +145,6 @@ module.exports = {
     getUserByEmail,
     getAdminController,
     getContactAdminController,
+    banUserController,
+    userDeleteAccountController,
 };
