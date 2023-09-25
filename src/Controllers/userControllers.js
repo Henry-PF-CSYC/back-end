@@ -115,16 +115,15 @@ const getAdminController = async (req, res) => {
     return admin;
 };
 const getAllUsersController = async () => {
-    return await User.findAll(
-        {
-            where: {
-                role: {
-                    [Op.not]: ["admin", "contact_admin"],
-                },
+    return await User.findAll({
+        where: {
+            role: {
+                [Op.not]: ["admin", "contact_admin"],
             },
         },
-        { raw: true, paranoid: false }
-    );
+        raw: true,
+        paranoid: false,
+    });
 };
 
 const getUserByEmail = async (email) => {
