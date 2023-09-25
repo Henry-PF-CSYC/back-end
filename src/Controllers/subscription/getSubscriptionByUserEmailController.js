@@ -33,8 +33,12 @@ const getSubscriptionByUserEmailController = async (
             where: { user_id: user_email },
             include: [
                 {
+                    model: User,
+                    attributes: ["name", "lastname"],
+                },
+                {
                     model: Service,
-                    attributes: ["name"],
+                    attributes: ["name", "image", "description", "due_date"],
                 },
             ],
             raw: true,

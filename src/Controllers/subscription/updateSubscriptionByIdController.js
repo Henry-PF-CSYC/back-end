@@ -5,7 +5,16 @@ const updateSubscriptionByIdController = async (subscription_id) => {
     try {
         const subscription = await Subscription.findOne({
             id: subscription_id,
-            include: ["user", "service"],
+            include: [
+                {
+                    model: User,
+                    attributes: ["name", "lastname", "email"],
+                },
+                {
+                    model: Service,
+                    attributes: ["name", "image", "description", "due_date"],
+                },
+            ],
         });
         if (!subscription) {
             return {
