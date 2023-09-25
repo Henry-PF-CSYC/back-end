@@ -60,11 +60,14 @@ const createSubscriptionsController = async (user_email, service_ids) => {
         );
         const foundSubscriptions = await Subscription.findAll({
             where: { id: subscription_ids },
-            attributes: ["id", "due_date", "status", "user_service_pair"],
             include: [
                 {
+                    model: User,
+                    attributes: ["name", "lastname"],
+                },
+                {
                     model: Service,
-                    attributes: ["description", "name", "image"],
+                    attributes: ["name", "image", "description", "due_date"],
                 },
             ],
         });

@@ -32,6 +32,16 @@ const getSubscriptionsByServiceIdController = async (
         }
         let subscriptions = await Subscription.findAll({
             where: { service_id },
+            include: [
+                {
+                    model: User,
+                    attributes: ["name", "lastname"],
+                },
+                {
+                    model: Service,
+                    attributes: ["name", "image", "description", "due_date"],
+                },
+            ],
         });
         subscriptions = filterByDueDate(subscriptions, due_date);
         subscriptions = filterByStatus(subscriptions, status);

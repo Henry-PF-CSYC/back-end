@@ -86,6 +86,17 @@ const subscriptionDeleterHelper = async (user, service_id, hard) => {
             user_id: user.email,
             service_id: service.id,
         },
+        include: [
+            {
+                model: User,
+                attributes: ["name", "lastname"],
+            },
+            {
+                model: Service,
+                attributes: ["name", "image", "description", "due_date"],
+            },
+        ],
+
         paranoid: false,
     });
     if (!subscription) {
