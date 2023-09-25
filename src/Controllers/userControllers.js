@@ -115,7 +115,6 @@ const getAdminController = async (req, res) => {
     return admin;
 };
 const getAllUsersController = async () => {
-    //all wher role is not admin or contact_admin
     return await User.findAll(
         {
             where: {
@@ -124,7 +123,7 @@ const getAllUsersController = async () => {
                 },
             },
         },
-        { raw: true }
+        { raw: true, paranoid: false }
     );
 };
 
