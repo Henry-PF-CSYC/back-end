@@ -33,15 +33,19 @@ const getSubscriptionByUserEmailController = async (
             where: { user_id: user_email },
             include: [
                 {
-                    model: User,
-                    attributes: ["name", "last_name"],
-                },
-                {
                     model: Service,
                     attributes: ["name"],
                 },
             ],
+            raw: true,
         });
+        if (subscriptions.length === 0) {
+            return {
+                statusCode: 404,
+                message: `No subscriptions found for user with email "${user_email}" found`,
+            };
+        }
+
         subscriptions = filterByDueDate(subscriptions, due_date);
         subscriptions = filterByStatus(subscriptions, status);
         subscriptions = filterByService(subscriptions, service);
@@ -60,6 +64,12 @@ const getSubscriptionByUserEmailController = async (
                 break;
         }
         const paginatedSubscriptions = paginate(subscriptions, page, size);
+        if (paginatedSubscriptions.length === 0) {
+            return {
+                statusCode: 404,
+                message: `No matching subscriptions found`,
+            };
+        }
 
         return {
             statusCode: 200,
