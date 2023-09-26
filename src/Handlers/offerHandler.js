@@ -85,6 +85,7 @@ const getOfferById = async (req, res) => {
 
 const deleteOfferHandler = async (req, res) => {
     const offerId = req.params.id;
+    const { type } = req.query;
     try {
         const offer = await Offer.findByPk(offerId);
         if (!offer) {
@@ -92,7 +93,11 @@ const deleteOfferHandler = async (req, res) => {
                 .status(400)
                 .json({ error: "No se encontró ninguna oferta" });
         }
-        await offer.destroy();
+        if (type === "hard") {
+            await offer.destroy({ force: true });
+        } else {
+            await offer.destroy();
+        }
         return res.status(200).json({ message: "oferta eliminada con éxito" });
     } catch (error) {
         return res.status(400).json({ error: error.message });
