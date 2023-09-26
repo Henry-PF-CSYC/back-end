@@ -1,9 +1,27 @@
 const { Offer } = require("../db");
+const { filterOrderAndPaginateOffers } = require("../utils/offerUtils");
+const { Op } = require("sequelize");
+const getAllOfferController = async (req) => {
+    const { title, type, order, orderBy, page, size } = req.query;
+    let offers = [];
+    if (title)
+        offers = await Offer.findAll({
+            where: { title: { [Op.iLike]: `%${title}%` } },
+        });
+    else offers = await Offer.findAll();
+    const { totalPages, paginated } = await filterOrderAndPaginateOffers(
+        offers,
+        type,
+        order,
+        orderBy,
+        page,
+        size
+    );
+    offers = paginated;
 
-const getAllOfferController = async () => {
-  return await Offer.findAll();
+    return { totalPages, offers };
 };
 
 module.exports = {
-  getAllOfferController,
+    getAllOfferController,
 };

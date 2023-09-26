@@ -1,7 +1,30 @@
 const paginate = require("./paginate");
+const filterAndPaginateServices = async (
+    services = [],
+    page = 1,
+    size = 3,
+    type = "",
+    order = "asc",
+    min = 0,
+    max = 1000000,
+    orderBy = "name" //can be price or name
+) => {
+    services = filterByType(services, type);
+    services = filterByRange(services, min, max);
 
+    const totalPages = Math.ceil(services.length / size);
+
+    orderBy === "price"
+        ? (services = orderByPrice(services, order))
+        : (services = orderByName(services, order));
+
+    const paginated = paginate(services, page, size);
+
+    return { totalPages, paginated };
+};
 const filterByType = (services, type) => {
     if (!type) return services;
+    type = type.toLowerCase();
     return services.filter((service) => service.type == type);
 };
 
@@ -39,4 +62,5 @@ module.exports = {
     orderByName,
     orderByPrice,
     paginate,
+    filterAndPaginateServices,
 };
