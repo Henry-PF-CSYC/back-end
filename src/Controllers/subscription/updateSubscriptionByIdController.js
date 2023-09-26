@@ -12,7 +12,7 @@ const updateSubscriptionByIdController = async (subscription_id) => {
                 },
                 {
                     model: Service,
-                    attributes: ["name", "image", "description", "due_date"],
+                    attributes: ["name", "image", "description"],
                 },
             ],
         });
