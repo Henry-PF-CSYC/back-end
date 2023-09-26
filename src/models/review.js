@@ -33,5 +33,10 @@ module.exports = (sequelize) => {
                 key: "id",
             },
         },
+        user_service_pair: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+        },
     });
 };
