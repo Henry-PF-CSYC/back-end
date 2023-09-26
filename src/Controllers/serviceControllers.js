@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 const {
     filterByType,
     filterByRange,
-    orderByAlphabetical,
+    orderByName,
     orderByPrice,
     paginate,
 } = require("../utils/serviceUtils");
@@ -44,36 +44,54 @@ const postServiceController = async (
 
     return newService;
 };
-const getServiceByNameController = async (name) => {
-    const tolowerCaseName = name.toLowerCase();
-    const service = await Service.findAll({
-        where: { name: { [Op.iLike]: "%" + tolowerCaseName + "%" } },
-    });
-    return service;
-};
 
-const getNonDeletedServicesController = async (
+const getServicesFilteredAndPaginatedController = async (req) => {
+    const { name, page, size, type, order, min, max, orderBy } = req.query;
+    let services = [];
+
+    if (!name) {
+        services = await Service.findAll();
+    } else {
+        const parsed_name = name.toLowerCase().trim();
+        services = await Service.findAll({
+            where: {
+                name: { [Op.iLike]: `%${parsed_name}%` },
+            },
+        });
+    }
+    const { totalPages, paginated } = await filterAndPaginateServices(
+        services,
+        page,
+        size,
+        type,
+        order,
+        min,
+        max,
+        orderBy
+    );
+
+    return { totalPages, paginated };
+};
+const filterAndPaginateServices = async (
+    services = [],
     page = 1,
     size = 3,
-    type = null,
-    order = "ASC",
-    orderBy = "price", //price or name
+    type = "",
+    order = "asc",
     min = 0,
-    max = 999999999999999
+    max = 1000000,
+    orderBy = "name" //can be price or name
 ) => {
-    let ordered;
+    services = filterByType(services, type);
+    services = filterByRange(services, min, max);
 
-    const services = await Service.findAll();
-    const ofType = filterByType(services, type);
-    const ofRange = filterByRange(ofType, min, max);
-
-    const totalPages = Math.ceil(ofRange.length / size);
+    const totalPages = Math.ceil(services.length / size);
 
     orderBy === "price"
-        ? (ordered = orderByPrice(ofRange, order))
-        : (ordered = orderByAlphabetical(ofRange, order));
+        ? (services = orderByPrice(services, order))
+        : (services = orderByName(services, order));
 
-    const paginated = paginate(ordered, page, size);
+    const paginated = paginate(services, page, size);
 
     return { totalPages, paginated };
 };
@@ -123,8 +141,7 @@ const restoreServiceController = async (id) => {
 };
 module.exports = {
     postServiceController,
-    getServiceByNameController,
-    getNonDeletedServicesController,
+    getServicesFilteredAndPaginatedController,
     postArrayServiceController,
 
     deleteServiceController,

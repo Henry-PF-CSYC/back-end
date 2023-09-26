@@ -2,10 +2,9 @@ const { Router } = require("express");
 
 const {
     postServiceHandler,
-    getNonDeleted,
+    getServicesFilteredAndPaginated,
     getServiceById,
     postArrayServiceHandler,
-    getAllServices,
     updateServiceHandler,
     deleteServiceHandler,
     deleteArrayServiceHandler,
@@ -14,8 +13,7 @@ const {
 } = require("../Handlers/serviceHandler");
 
 const serviceRouter = Router();
-serviceRouter.get("/", getNonDeleted);
-serviceRouter.get("/all", getAllServices);
+serviceRouter.get("/", getServicesFilteredAndPaginated);
 serviceRouter.get("/:id", getServiceById);
 
 serviceRouter.post("/", postServiceHandler);

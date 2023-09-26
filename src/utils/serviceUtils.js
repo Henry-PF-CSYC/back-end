@@ -11,10 +11,11 @@ const filterByRange = (services, min, max) => {
     );
 };
 
-const orderByAlphabetical = (services, order) => {
-    if (order === "ASC") {
+const orderByName = (services, order) => {
+    order = order.toLowerCase();
+    if (order === "asc") {
         return services.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (order === "DESC") {
+    } else if (order === "desc") {
         return services.sort((a, b) => b.name.localeCompare(a.name));
     } else {
         return services;
@@ -22,9 +23,10 @@ const orderByAlphabetical = (services, order) => {
 };
 
 const orderByPrice = (services, order) => {
-    if (order === "ASC") {
+    order = order.toLowerCase();
+    if (order === "asc") {
         return services.sort((a, b) => a.price - b.price);
-    } else if (order === "DESC") {
+    } else if (order === "asc") {
         return services.sort((a, b) => b.price - a.price);
     } else {
         return services;
@@ -34,7 +36,7 @@ const orderByPrice = (services, order) => {
 module.exports = {
     filterByType,
     filterByRange,
-    orderByAlphabetical,
+    orderByName,
     orderByPrice,
     paginate,
 };
