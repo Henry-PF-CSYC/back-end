@@ -33,7 +33,7 @@ const getSubscriptionsController = async (
                 },
                 {
                     model: Service,
-                    attributes: ["name", "image", "description", "due_date"],
+                    attributes: ["name", "image", "description"],
                 },
             ],
         });
@@ -54,7 +54,6 @@ const getSubscriptionsController = async (
             case "user":
                 subscriptions = orderByUser(subscriptions, direction);
                 break;
-
             default:
                 subscriptions = orderByDueDate(subscriptions, direction);
                 break;

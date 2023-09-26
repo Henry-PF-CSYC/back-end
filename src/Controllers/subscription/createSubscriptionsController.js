@@ -67,7 +67,7 @@ const createSubscriptionsController = async (user_email, service_ids) => {
                 },
                 {
                     model: Service,
-                    attributes: ["name", "image", "description", "due_date"],
+                    attributes: ["name", "image", "description"],
                 },
             ],
         });

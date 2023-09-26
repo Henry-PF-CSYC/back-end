@@ -39,7 +39,7 @@ const getSubscriptionsByServiceIdController = async (
                 },
                 {
                     model: Service,
-                    attributes: ["name", "image", "description", "due_date"],
+                    attributes: ["name", "image", "description"],
                 },
             ],
         });

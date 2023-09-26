@@ -93,7 +93,7 @@ const subscriptionDeleterHelper = async (user, service_id, hard) => {
             },
             {
                 model: Service,
-                attributes: ["name", "image", "description", "due_date"],
+                attributes: ["name", "image", "description"],
             },
         ],
 
