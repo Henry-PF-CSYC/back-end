@@ -2,8 +2,7 @@ const { Service } = require("../db");
 
 const {
     postServiceController,
-    getServiceByNameController,
-    getNonDeletedServicesController,
+    getServicesFilteredAndPaginatedController,
     postArrayServiceController,
 
     deleteServiceController,
@@ -39,35 +38,19 @@ const postArrayServiceHandler = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
-const getNonDeleted = async (req, res) => {
-    const { name, page, size, type, order, min, max, orderBy } = req.query;
-
+const getServicesFilteredAndPaginated = async (req, res) => {
     try {
         let service = [];
         let count = 0;
-        if (name) {
-            service = await getServiceByNameController(name);
-            count = Math.ceil(service.length / size);
-        } else {
-            const { totalPages, paginated } =
-                await getNonDeletedServicesController(
-                    page,
-                    size,
-                    type,
-                    order,
-                    orderBy,
-                    min,
-                    max
-                );
-            service = paginated;
-            count = totalPages;
-        }
-
-        if (count === 0) {
+        const { totalPages, paginated } =
+            await getServicesFilteredAndPaginatedController(req);
+        if (paginated.length === 0) {
             return res
                 .status(400)
                 .json({ message: "No se encontró ningun servicio" });
         }
+        service = paginated;
+        count = totalPages;
 
         return res.status(200).json({ count, service });
     } catch (error) {
@@ -87,22 +70,6 @@ const getServiceById = async (req, res) => {
                 .json({ message: "No se encontro el servicio" });
         }
         return res.status(200).json(service);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-};
-
-const getAllServices = async (req, res) => {
-    try {
-        const services = await Service.findAll({
-            paranoid: false,
-        });
-        if (!services) {
-            return res
-                .status(400)
-                .json({ message: "No se encontraron servicios" });
-        }
-        return res.status(200).json(services);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -203,11 +170,10 @@ const restoreArrayServiceHandler = async (req, res) => {
 
 module.exports = {
     postServiceHandler,
-    getNonDeleted,
+    getServicesFilteredAndPaginated,
     getServiceById,
     postArrayServiceHandler,
 
-    getAllServices,
     updateServiceHandler,
 
     deleteServiceHandler,
