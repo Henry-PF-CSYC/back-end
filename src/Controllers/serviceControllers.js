@@ -1,12 +1,6 @@
 const { Service, Category } = require("../db");
 const { Op } = require("sequelize");
-const {
-    filterByType,
-    filterByRange,
-    orderByName,
-    orderByPrice,
-    paginate,
-} = require("../utils/serviceUtils");
+const { filterAndPaginateServices } = require("../utils/serviceUtils");
 const postArrayServiceController = async (array) => {
     const newServices = await Service.bulkCreate(array); //findOrCreate the type in Category table, associate it with the service
     const categories = await Category.findAll();
@@ -69,29 +63,6 @@ const getServicesFilteredAndPaginatedController = async (req) => {
         max,
         orderBy
     );
-
-    return { totalPages, paginated };
-};
-const filterAndPaginateServices = async (
-    services = [],
-    page = 1,
-    size = 3,
-    type = "",
-    order = "asc",
-    min = 0,
-    max = 1000000,
-    orderBy = "name" //can be price or name
-) => {
-    services = filterByType(services, type);
-    services = filterByRange(services, min, max);
-
-    const totalPages = Math.ceil(services.length / size);
-
-    orderBy === "price"
-        ? (services = orderByPrice(services, order))
-        : (services = orderByName(services, order));
-
-    const paginated = paginate(services, page, size);
 
     return { totalPages, paginated };
 };
