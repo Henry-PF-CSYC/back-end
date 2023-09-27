@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
                 type: DataTypes.TEXT,
             },
             contact: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.NUMERIC,
                 allowNull: false,
             },
             image: {
