@@ -42,7 +42,7 @@ const filterOrderAndPaginateOffers = async (
     page = 1,
     size = 10
 ) => {
-    !!type && filterByType(offers, type);
+   offers =  filterByType(offers, type);
     const totalPages = Math.ceil(offers.length / size);
     switch (orderBy) {
         case "title":
