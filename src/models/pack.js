@@ -14,15 +14,15 @@ module.exports = (sequelize) => {
                 allowNull: true,
             },
             original_total: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.DECIMAL,
                 allowNull: false,
             },
             final_total: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.DECIMAL,
                 allowNull: false,
             },
             discount: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.DECIMAL,
                 allowNull: false,
             },
         },
