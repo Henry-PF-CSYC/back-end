@@ -14,7 +14,7 @@ const postOfferHandler = async (req, res) => {
         const newOffer = await Offer.create({
             title,
             description,
-            contact,
+            contact: contact.toString(),
             type,
             user_id: user.email,
             image,
