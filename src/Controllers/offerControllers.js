@@ -7,8 +7,9 @@ const getAllOfferController = async (req) => {
     if (title)
         offers = await Offer.findAll({
             where: { title: { [Op.iLike]: `%${title}%` } },
+            paranoid: false,
         });
-    else offers = await Offer.findAll();
+    else offers = await Offer.findAll({ paranoid: false });
     const { totalPages, paginated } = await filterOrderAndPaginateOffers(
         offers,
         type,
