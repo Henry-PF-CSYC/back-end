@@ -49,7 +49,7 @@ const orderByPrice = (services, order) => {
     order = order.toLowerCase();
     if (order === "asc") {
         return services.sort((a, b) => a.price - b.price);
-    } else if (order === "asc") {
+    } else if (order === "desc") {
         return services.sort((a, b) => b.price - a.price);
     } else {
         return services;
