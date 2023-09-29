@@ -14,6 +14,12 @@ const getAllOfferController = async (req) => {
             paranoid: false,
         });
     else offers = await Offer.findAll({ paranoid: is_paranoid });
+    if (offers.length === 0) {
+        return {
+            totalPages: 0,
+            offers: [],
+        };
+    }
     const { totalPages, paginated } = await filterOrderAndPaginateOffers(
         offers,
         type,
@@ -22,12 +28,6 @@ const getAllOfferController = async (req) => {
         page,
         size
     );
-    if (paginated.length === 0) {
-        return {
-            statusCode: 404,
-            message: `No offers found`,
-        };
-    }
 
     offers = paginated;
 
