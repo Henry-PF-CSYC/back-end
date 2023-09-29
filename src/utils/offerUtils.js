@@ -42,8 +42,7 @@ const filterOrderAndPaginateOffers = async (
     page = 1,
     size = 10
 ) => {
-   offers =  filterByType(offers, type);
-    const totalPages = Math.ceil(offers.length / size);
+    offers = filterByType(offers, type);
     switch (orderBy) {
         case "title":
             orderByTitle(offers, order);
@@ -58,7 +57,8 @@ const filterOrderAndPaginateOffers = async (
             orderByCreationDate(offers, order);
             break;
     }
-    const paginated = paginate(offers, page, size);
+    const { totalPages, paginated } = paginate(offers, page, size);
+
     return { totalPages, paginated };
 };
 

@@ -22,6 +22,13 @@ const getAllOfferController = async (req) => {
         page,
         size
     );
+    if (paginated.length === 0) {
+        return {
+            statusCode: 404,
+            message: `No offers found`,
+        };
+    }
+
     offers = paginated;
 
     return { totalPages, offers };

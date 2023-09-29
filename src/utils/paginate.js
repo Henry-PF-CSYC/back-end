@@ -1,7 +1,12 @@
 const paginate = (array, page, size) => {
-    const sliced = array.slice((page - 1) * size, page * size);
+    const totalPages = Math.ceil(array.length / size);
 
-    return sliced;
+    const paginated = array.slice((page - 1) * size, page * size);
+
+    return {
+        totalPages,
+        paginated,
+    };
 };
 
 module.exports = paginate;

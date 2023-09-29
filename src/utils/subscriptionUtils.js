@@ -1,4 +1,5 @@
 const orderByDueDate = (array, direction) => {
+    direction = direction.toUpperCase();
     if (direction === "ASC") {
         return array.sort((a, b) => {
             const dateA = new Date(a.dueDate);
@@ -14,6 +15,7 @@ const orderByDueDate = (array, direction) => {
     }
 };
 const orderByStatus = (array, direction) => {
+    direction = direction.toUpperCase();
     if (direction === "ASC") {
         return array.sort((a, b) => {
             const statusA = a.status;
@@ -41,6 +43,7 @@ const orderByStatus = (array, direction) => {
     }
 };
 const orderByUser = (array, direction) => {
+    direction = direction.toUpperCase();
     if (direction === "ASC") {
         return array.sort((a, b) => {
             const userA = a.user_id;
@@ -68,6 +71,7 @@ const orderByUser = (array, direction) => {
     }
 };
 const orderByService = (array, direction) => {
+    direction = direction.toUpperCase();
     if (direction === "ASC") {
         return array.sort((a, b) => {
             const serviceA = a.service.name;

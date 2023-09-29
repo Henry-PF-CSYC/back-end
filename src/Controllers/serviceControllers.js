@@ -63,6 +63,12 @@ const getServicesFilteredAndPaginatedController = async (req) => {
         max,
         orderBy
     );
+    if (paginated.length === 0) {
+        return {
+            statusCode: 404,
+            message: `No services found`,
+        };
+    }
 
     return { totalPages, paginated };
 };
