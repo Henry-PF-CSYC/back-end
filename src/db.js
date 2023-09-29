@@ -35,17 +35,27 @@ fs.readdirSync(path.join(__dirname, "/models"))
 modelDefiners.forEach((model) => model(sequelize));
 // Capitalizamos los nombres de los modelos ie: product => Product
 let entries = Object.entries(sequelize.models);
+
 let capsEntries = entries.map((entry) => [
     entry[0][0].toUpperCase() + entry[0].slice(1),
     entry[1],
 ]);
+console.log(capsEntries);
 sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 
-const { Service, Category, User, Review, Subscription, Offer, Pack } =
-    sequelize.models; //admins,subscriptions,models,reviews,services,users
+const {
+    Service,
+    Category,
+    User,
+    Review,
+    Subscription,
+    Offer,
+    Pack,
+    PackSubscription,
+} = sequelize.models; //admins,subscriptions,models,reviews,services,users
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
@@ -54,13 +64,13 @@ Subscription.belongsTo(User, { foreignKey: "user_id" });
 Service.hasMany(Subscription, { foreignKey: "service_id" });
 Subscription.belongsTo(Service, { foreignKey: "service_id" });
 
-//pack-service many to many
-//user-pack many to many
+User.hasMany(PackSubscription, { foreignKey: "user_id" });
+PackSubscription.belongsTo(User, { foreignKey: "user_id" });
+Pack.hasMany(PackSubscription, { foreignKey: "pack_id" });
+PackSubscription.belongsTo(Pack, { foreignKey: "pack_id" });
+
 Pack.belongsToMany(Service, { through: "pack_service" });
 Service.belongsToMany(Pack, { through: "pack_service" });
-
-User.belongsToMany(Pack, { through: "user_pack" });
-Pack.belongsToMany(User, { through: "user_pack" });
 
 User.hasMany(Review, { foreignKey: "user_id" });
 Review.belongsTo(User, { foreignKey: "user_id" });
