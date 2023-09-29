@@ -54,8 +54,6 @@ const getSubscriptionByUserEmailController = async (
         subscriptions = filterByStatus(subscriptions, status);
         subscriptions = filterByService(subscriptions, service);
 
-        const totalPages = Math.ceil(subscriptions.length / size);
-
         switch (order_by) {
             case "service":
                 subscriptions = orderByService(subscriptions, direction);
@@ -67,8 +65,8 @@ const getSubscriptionByUserEmailController = async (
                 subscriptions = orderByDueDate(subscriptions, direction);
                 break;
         }
-        const paginatedSubscriptions = paginate(subscriptions, page, size);
-        if (paginatedSubscriptions.length === 0) {
+        const { totalPages, paginated } = paginate(subscriptions, page, size);
+        if (paginated.length === 0) {
             return {
                 statusCode: 404,
                 message: `No matching subscriptions found`,
@@ -78,7 +76,7 @@ const getSubscriptionByUserEmailController = async (
         return {
             statusCode: 200,
             totalPages,
-            subscriptions: paginatedSubscriptions,
+            subscriptions: paginated,
         };
     } catch (error) {
         return {

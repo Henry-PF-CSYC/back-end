@@ -12,13 +12,11 @@ const filterAndPaginateServices = async (
     services = filterByType(services, type);
     services = filterByRange(services, min, max);
 
-    const totalPages = Math.ceil(services.length / size);
-
     orderBy === "price"
         ? (services = orderByPrice(services, order))
         : (services = orderByName(services, order));
 
-    const paginated = paginate(services, page, size);
+    const { totalPages, paginated } = paginate(services, page, size);
 
     return { totalPages, paginated };
 };

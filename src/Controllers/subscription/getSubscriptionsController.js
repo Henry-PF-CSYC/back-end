@@ -42,8 +42,6 @@ const getSubscriptionsController = async (
         subscriptions = filterByUser(subscriptions, user);
         subscriptions = filterByService(subscriptions, service);
 
-        const totalPages = Math.ceil(subscriptions.length / size);
-
         switch (order_by) {
             case "service":
                 subscriptions = orderByService(subscriptions, direction);
@@ -59,11 +57,19 @@ const getSubscriptionsController = async (
                 break;
         }
 
-        const paginatedSubscriptions = paginate(subscriptions, page, size);
+        const { totalPages, paginated } = paginate(subscriptions, page, size);
+
+        if (paginated.length === 0) {
+            return {
+                statusCode: 404,
+                message: `No subscriptions found`,
+            };
+        }
+
         return {
             statusCode: 200,
             totalPages,
-            subscriptions: paginatedSubscriptions,
+            subscriptions: paginated,
         };
     } catch (error) {
         return {
