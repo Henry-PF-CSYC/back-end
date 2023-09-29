@@ -46,6 +46,27 @@ module.exports = (sequelize) => {
                 allowNull: false,
                 unique: true,
             },
+            through_pack: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false,
+                defaultValue: false,
+            },
+            pack_id: {
+                type: DataTypes.UUID,
+                allowNull: true,
+                references: {
+                    model: "packs",
+                    key: "id",
+                },
+            },
+            due_date: {
+                type: DataTypes.DATE,
+                allowNull: true,
+            },
+            due_payment: {
+                type: DataTypes.DECIMAL,
+                allowNull: false,
+            },
         },
         {
             paranoid: true,
