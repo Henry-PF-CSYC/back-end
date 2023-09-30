@@ -5,6 +5,8 @@ const {
     updatePackController,
     getPacksController,
     getPackByIdController,
+    createArrayPacksController,
+    deletePackArrayController,
 } = require("../Controllers/packController.js");
 
 const createPack = async (req, res) => {
@@ -16,10 +18,28 @@ const createPack = async (req, res) => {
     }
 };
 
+const createArrayPacks = async (req, res) => {
+    try {
+        const { message, packs } = await createArrayPacksController(req);
+        res.status(201).json({ message, packs });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const deletePack = async (req, res) => {
     try {
         const { message, pack } = await deletePackController(req);
         res.status(200).json({ message, pack });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+const deletePackArray = async (req, res) => {
+    try {
+        const { message, packs } = await deletePackArrayController(req);
+        res.status(200).json({ message, packs });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -54,8 +74,8 @@ const getPacks = async (req, res) => {
 
 const getPackById = async (req, res) => {
     try {
-        const { message, pack } = await getPackByIdController(req);
-        res.status(200).json({ message, pack });
+        const pack = await getPackByIdController(req);
+        res.status(200).json(pack);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -68,4 +88,6 @@ module.exports = {
     updatePack,
     restorePack,
     deletePack,
+    createArrayPacks,
+    deletePackArray,
 };

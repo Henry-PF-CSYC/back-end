@@ -36,6 +36,11 @@ module.exports = (sequelize) => {
                 type: DataTypes.DATE,
                 allowNull: true,
             },
+            service_set_identifier: {
+                type: DataTypes.TEXT,
+                allowNull: false,
+                unique: true,
+            },
         },
         {
             paranoid: true,
