@@ -21,15 +21,15 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING,
             },
             original_total: {
-                type: DataTypes.DECIMAL,
+                type: DataTypes.NUMERIC,
                 allowNull: false,
             },
             final_total: {
-                type: DataTypes.DECIMAL,
+                type: DataTypes.NUMERIC,
                 allowNull: false,
             },
             discount: {
-                type: DataTypes.DECIMAL,
+                type: DataTypes.NUMERIC,
                 allowNull: false,
             },
             deletedAt: {

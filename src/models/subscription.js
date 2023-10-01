@@ -64,7 +64,7 @@ module.exports = (sequelize) => {
                 allowNull: true,
             },
             due_payment: {
-                type: DataTypes.DECIMAL,
+                type: DataTypes.NUMERIC,
                 allowNull: false,
             },
         },

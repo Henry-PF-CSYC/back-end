@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
             defaultValue: DataTypes.UUIDV4,
         },
         rating: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.NUMERIC,
             allowNull: false,
         },
         comment: {

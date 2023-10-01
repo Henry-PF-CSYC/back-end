@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
                 primaryKey: true,
             },
             dni: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.NUMERIC,
                 unique: true,
                 allowNull: true,
             },
