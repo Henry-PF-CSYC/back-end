@@ -115,7 +115,7 @@ const createPackController = async (req) => {
     const services_names = services.map((service) => service.name);
     if (!existing) {
         const original_total = services.reduce(
-            (acc, service) => acc + service.price,
+            (acc, service) => acc + Number(service.price),
             0
         );
 
