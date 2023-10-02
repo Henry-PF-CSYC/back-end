@@ -2,28 +2,65 @@ const { Subscription, User, Pack, Services } = require("../../db");
 //packSubscriptionRouter.get("/", getPackSubscriptions); //takes type=all to get all packSubscriptions, type=deleted to get deleted packSubscriptions, type=active to get active packSubscriptions
 const getPackSubscriptionsController = async (req) => {
     const { type } = req.query;
+    switch (type) {
+        case "all":
+            return await getAllPackSubscriptionsController(req);
+        case "deleted":
+            return await getDeletedPackSubscriptionsController(req);
+        default: //active
+            return await getActivePackSubscriptionsController(req);
+    }
+};
+
+const getAllPackSubscriptionsController = async (req) => {
     const subscriptions = await Subscription.findAll({
         where: {
             through_pack: true,
         },
-        paranoid: type === "deleted" ? false : true,
     });
-    const packs = [];
-    for (let i = 0; i < subscriptions.length; i++) {
-        const pack = await Pack.findOne({
-            where: {
-                id: subscriptions[i].pack_id,
-            },
-        });
-        packs.push(pack);
+    if (subscriptions.length === 0) {
+        throw new Error("No pack subscriptions found");
     }
     return {
         statusCode: 200,
-        message: "Subscriptions found",
+        message: "All pack subscriptions",
         subscriptions,
-        packs,
     };
 };
+
+const getDeletedPackSubscriptionsController = async (req) => {
+    const subscriptions = await Subscription.findAll({
+        where: {
+            through_pack: true,
+        },
+        paranoid: false,
+    });
+    if (subscriptions.length === 0) {
+        throw new Error("No deleted pack subscriptions found");
+    }
+    return {
+        statusCode: 200,
+        message: "Deleted pack subscriptions",
+        subscriptions,
+    };
+};
+
+const getActivePackSubscriptionsController = async (req) => {
+    const subscriptions = await Subscription.findAll({
+        where: {
+            through_pack: true,
+        },
+    });
+    if (subscriptions.length === 0) {
+        throw new Error("No active pack subscriptions found");
+    }
+    return {
+        statusCode: 200,
+        message: "Active pack subscriptions",
+        subscriptions,
+    };
+};
+
 const createPackSubscriptionController = async (req) => {
     const { user_email, pack_ids } = req.body;
 
@@ -288,9 +325,167 @@ const restorePackSubscriptionController = async (req) => {
     };
 };
 
+const getPackSubscriptionsByUserController = async (req) => {
+    const type = req.query.type;
+    switch (type) {
+        case "all":
+            return await getAllPackSubscriptionsByUserController(req);
+        case "deleted":
+            return await getDeletedPackSubscriptionsByUserController(req);
+        default: //active
+            return await getActivePackSubscriptionsByUserController(req);
+    }
+};
+
+const getAllPackSubscriptionsByUserController = async (req) => {
+    const { user_email } = req.params;
+    const subscriptions = await Subscription.findAll({
+        where: {
+            user_id: user_email,
+            through_pack: true,
+        },
+    });
+    if (subscriptions.length === 0) {
+        throw new Error("No pack subscriptions found");
+    }
+    return {
+        statusCode: 200,
+        message: `All pack subscriptions of user ${user_email}`,
+        subscriptions,
+    };
+};
+
+const getDeletedPackSubscriptionsByUserController = async (req) => {
+    const { user_email } = req.params;
+    const subscriptions = await Subscription.findAll({
+        where: {
+            user_id: user_email,
+            through_pack: true,
+        },
+        paranoid: false,
+    });
+    if (subscriptions.length === 0) {
+        throw new Error("No deleted pack subscriptions found");
+    }
+    return {
+        statusCode: 200,
+        message: `Deleted pack subscriptions of user ${user_email}`,
+        subscriptions,
+    };
+};
+
+const getActivePackSubscriptionsByUserController = async (req) => {
+    const { user_email } = req.params;
+    const subscriptions = await Subscription.findAll({
+        where: {
+            user_id: user_email,
+            through_pack: true,
+        },
+    });
+    if (subscriptions.length === 0) {
+        throw new Error("No active pack subscriptions found");
+    }
+    return {
+        statusCode: 200,
+        message: `Active pack subscriptions of user ${user_email}`,
+        subscriptions,
+    };
+};
+
+const getPackSubscriptionsByPackController = async (req) => {
+    const { pack_id } = req.params;
+    const subscriptions = await Subscription.findAll({
+        where: {
+            pack_id,
+            through_pack: true,
+        },
+    });
+    if (subscriptions.length === 0) {
+        throw new Error("No pack subscriptions found");
+    }
+    return {
+        statusCode: 200,
+        message: `Pack subscriptions of pack ${pack_id}`,
+        subscriptions,
+    };
+};
+
+const updatePackSubscriptionByUserController = async (req) => {
+    const { user_email, pack_ids } = req.body;
+    const user = await User.findOne({
+        where: {
+            email: user_email,
+        },
+    });
+
+    const packs = [];
+
+    for (let i = 0; i < pack_ids.length; i++) {
+        const pack = await Pack.findOne({
+            where: {
+                id: pack_ids[i],
+            },
+        });
+        if (!pack) {
+            packs.push({
+                error: `Pack ${pack_ids[i]} not found`,
+            });
+            continue;
+        }
+        packs.push(pack);
+    }
+    const subscriptions = [];
+    for (let i = 0; i < packs.length; i++) {
+        const pack = packs[i];
+        const packSubscriptions = await Subscription.findAll({
+            where: {
+                user_id: user.email,
+                pack_id: pack.id,
+                through_pack: true,
+            },
+        });
+        if (packSubscriptions.length === 0) {
+            subscriptions.push({
+                errorCode: 404,
+                error: `User ${user.email} is not subscribed to ${pack.name}`,
+            });
+            continue;
+        }
+
+        for (let j = 0; j < packSubscriptions.length; j++) {
+            const subscription = packSubscriptions[j];
+            subscription.due_date = new Date();
+            subscription.due_date.setMonth(
+                subscription.due_date.getMonth() + 1
+            );
+            subscription.due_date.setHours(20, 0, 0, 0);
+            await subscription.save();
+            subscriptions.push(subscription);
+        }
+    }
+    let message = "Subscriptions updated";
+    //check if any of the subscriptions have the errorCode 404, change message accordingly
+    for (let i = 0; i < subscriptions.length; i++) {
+        if (subscriptions[i].errorCode === 404) {
+            message = "Some subscriptions were not found";
+            break;
+        }
+    }
+
+    return {
+        statusCode: 200,
+        message,
+        packs,
+        subscriptions,
+    };
+};
+
 module.exports = {
     createPackSubscriptionController,
     deletePackSubscriptionsController,
     restorePackSubscriptionController,
     getPackSubscriptionsController,
+    getPackSubscriptionsByUserController,
+    getPackSubscriptionsByPackController,
+    updatePackSubscriptionByUserController, //change due_date to a month after the previous due_date at 8:00
 };

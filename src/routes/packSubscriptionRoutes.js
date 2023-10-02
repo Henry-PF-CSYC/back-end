@@ -5,6 +5,9 @@ const {
     deletePackSubscriptions,
     restorePackSubscription,
     getPackSubscriptions,
+    getPackSubscriptionsByUser,
+    getPackSubscriptionsByPack,
+    updatePackSubscriptionByUser, //change due_date to a month after the previous due_date at 8:00
 } = require("../Handlers/packSubscriptionHandlers.js");
 //byArrayOfPackIds
 //takes
@@ -19,6 +22,12 @@ packSubscriptionRouter.post("/restore", restorePackSubscription);
 packSubscriptionRouter.get("/", getPackSubscriptions); //takes type=all to get all packSubscriptions, type=deleted to get deleted packSubscriptions, type=active to get active packSubscriptions
 
 //byUserEmail
+packSubscriptionRouter.get("/:user_email", getPackSubscriptionsByUser);
+//byPackId
+packSubscriptionRouter.get("/:pack_id", getPackSubscriptionsByPack);
+
+//updateByUser(change due_date to a month after the previous due_date at 8:00)
+packSubscriptionRouter.put("/", updatePackSubscriptionByUser); //takes object with user_email, pack_ids: []
 
 module.exports = packSubscriptionRouter;
 
