@@ -8,8 +8,17 @@ mercadopago.configure({
 
 const placeOrder = async (req, res) => {
     try {
-        const items = req.body;
+        let items = req.body;
 
+        items = items.map((item) => {
+            return {
+                id: item.id,
+                title: item.title,
+                unit_price: Number(item.unit_price),
+                quantity: Number(item.quantity),
+                currency_id: "ARS",
+            };
+        });
         let preference = {
             back_urls: {
                 success: `${FRONT_END_URL}/usuario`, // URL en caso de éxitoURL en caso de pendiente
