@@ -3,8 +3,9 @@ const router = Router();
 
 const userRouter = require("./usersRoutes");
 
-const packRouter = require("./packRoutes.js");
 const offerRouter = require("./offerRoutes");
+const packRouter = require("./packRoutes.js");
+const noticeRouter = require("./noticeRoutes.js");
 const reviewRouter = require("./reviewRoutes");
 const contactRouter = require("./contactRoutes");
 const serviceRouter = require("./serviceRoutes");
@@ -15,6 +16,7 @@ const paymentRouter = require("../MercadoPago/src/routes/payment");
 router.use("/pack", packRouter);
 router.use("/offer", offerRouter);
 router.use("/users", userRouter);
+router.use("/notices", noticeRouter);
 router.use("/reviews", reviewRouter);
 router.use("/contact", contactRouter);
 router.use("/services", serviceRouter);
