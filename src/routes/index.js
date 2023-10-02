@@ -9,6 +9,7 @@ const reviewRouter = require("./reviewRoutes");
 const contactRouter = require("./contactRoutes");
 const serviceRouter = require("./serviceRoutes");
 const subscriptionRouter = require("./subscriptionRoutes");
+const packSubscriptionRouter = require("./packSubscriptionRoutes.js");
 const paymentRouter = require("../MercadoPago/src/routes/payment");
 
 router.use("/pack", packRouter);
@@ -19,6 +20,7 @@ router.use("/contact", contactRouter);
 router.use("/services", serviceRouter);
 router.use("/mercadopago", paymentRouter);
 router.use("/subscription", subscriptionRouter);
+router.use("/pack_subscription", packSubscriptionRouter);
 
 module.exports = router;
 // paolo- luz dario-luz alfredo-luz alfredo-gas facundo-youtube

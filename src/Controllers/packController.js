@@ -1,6 +1,6 @@
 const { Pack, Service } = require("../db");
 const { Op } = require("sequelize");
-
+const crypto = require("crypto");
 const getPacksController = async (req) => {
     const { type } = req.query;
     switch (type) {
@@ -9,12 +9,13 @@ const getPacksController = async (req) => {
                 include: [
                     {
                         model: Service,
-                        attributes: ["id", "name", "price"],
+                        attributes: ["id", "name", "price", "image"],
                         through: {
                             attributes: [],
                         },
                     },
                 ],
+                paranoid: false,
             });
             if (!allPacks.length) {
                 throw new Error("No packs found");
@@ -31,7 +32,7 @@ const getPacksController = async (req) => {
                 include: [
                     {
                         model: Service,
-                        attributes: ["id", "name", "price"],
+                        attributes: ["id", "name", "price", "image"],
                         through: {
                             attributes: [],
                         },
@@ -53,7 +54,7 @@ const getPacksController = async (req) => {
                 include: [
                     {
                         model: Service,
-                        attributes: ["id", "name", "price"],
+                        attributes: ["id", "name", "price", "image"],
                         through: {
                             attributes: [],
                         },
@@ -76,79 +77,162 @@ const getPackByIdController = async (req) => {
         include: [
             {
                 model: Service,
-                attributes: ["id", "name", "price"],
+                attributes: ["id", "name", "price", "image"],
                 through: {
                     attributes: [],
                 },
             },
         ],
+        paranoid: false,
     });
     if (!pack) {
         throw new Error("Pack not found");
     }
-    return {
-        message: `Pack ${pack.name}`,
-        pack,
-    };
+    return pack;
 };
 
 const createPackController = async (req) => {
     const { name, description, discount, services_ids, image } = req.body;
 
+    const service_set_identifier = crypto
+        .createHash("sha256")
+        .update(services_ids.sort().join(""))
+        .digest("hex")
+        .slice(0, 32);
+
+    const existing = await Pack.findOne({
+        where: {
+            service_set_identifier,
+        },
+        paranoid: false,
+        raw: true,
+    });
     const services = await Service.findAll({
         where: {
             id: services_ids,
         },
     });
-    const original_total = services.reduce(
-        (acc, service) => acc + service.price,
-        0
-    );
-    //discount is a number between 0 and 100 , treat it as a percentage
-    const final_total = original_total - (original_total * discount) / 100;
+    const services_names = services.map((service) => service.name);
+    if (!existing) {
+        const original_total = services.reduce(
+            (acc, service) => acc + Number(service.price),
+            0
+        );
 
-    const packToCreate = {
-        name,
-        description,
-        original_total,
-        final_total,
-        discount,
-        image,
-    };
+        const final_total = original_total - (original_total * discount) / 100;
 
-    const newPack = await Pack.create(packToCreate);
-    await newPack.setServices(services);
-    const packCreated = await Pack.findByPk(newPack.id, {
-        include: [
-            {
-                model: Service,
-                attributes: ["id", "name", "price"],
-                through: {
-                    attributes: [],
+        const packToCreate = {
+            name,
+            description,
+            original_total,
+            final_total,
+            discount,
+            image,
+            service_set_identifier,
+        };
+
+        const newPack = await Pack.create(packToCreate);
+        await newPack.setServices(services);
+        const packCreated = await Pack.findByPk(newPack.id, {
+            include: [
+                {
+                    model: Service,
+                    attributes: ["id", "name", "price", "image"],
+                    through: {
+                        attributes: [],
+                    },
                 },
+            ],
+        });
+        return {
+            error: false,
+            message: `Combo ${packCreated.name} creado con exito`,
+            pack: packCreated,
+        };
+    }
+
+    return {
+        error: true,
+        message: `Ya existe un combo con los servicios ${services_names.join(
+            ", "
+        )}`,
+        pack: existing,
+    };
+};
+
+const createArrayPacksController = async (req) => {
+    const packs = req.body;
+    //take each object from the array and pass it to the createPackController in an object {body: pack}
+    const packsCreated = await Promise.all(
+        packs.map(async (pack) => {
+            const {
+                error,
+                message,
+                pack: packCreated,
+            } = await createPackController({
+                body: pack,
+            });
+            if (error) {
+                return {
+                    message,
+                };
+            }
+            return packCreated;
+        })
+    );
+    return {
+        message: `Combos creados con exito`,
+        packs: packsCreated,
+    };
+};
+const deletePackArrayController = async (req) => {
+    const { type } = req.query;
+    let force = true;
+    if (type === "soft") force = false;
+    else force = true;
+    const packs = req.body;
+    const packsToDelete = await packs.map(async (pack) => {
+        const { name } = pack;
+        const packToDelete = await Pack.findOne({
+            where: {
+                name,
             },
-        ],
+            paranoid: false,
+        });
+        if (!packToDelete) {
+            return {
+                message: `No se encontro el combo ${name}`,
+            };
+        }
+        return packToDelete;
+    });
+    await Promise.all(packsToDelete);
+    await Pack.destroy({
+        where: {
+            name: packs.map((pack) => pack.name),
+        },
+        force: force,
     });
     return {
-        message: `Combo ${packCreated.name} creado con exito`,
-        pack: packCreated,
+        message: `Combos eliminados con exito`,
+        packs: packs.map((pack) => pack.name),
     };
 };
 
 const deletePackController = async (req) => {
     const { id } = req.params;
     const { type } = req.query;
-    //find one including services
     const packToDelete = await Pack.findByPk(id, {
         include: [
             {
                 model: Service,
-                attributes: ["id", "name", "price"],
+                attributes: ["id", "name", "price", "image"],
                 through: {
                     attributes: [],
                 },
             },
         ],
+        paranoid: false,
     });
 
     if (!packToDelete) {
@@ -173,7 +257,7 @@ const restorePackController = async (req) => {
         include: [
             {
                 model: Service,
-                attributes: ["id", "name", "price"],
+                attributes: ["id", "name", "price", "image"],
                 through: {
                     attributes: [],
                 },
@@ -192,7 +276,12 @@ const restorePackController = async (req) => {
 
 const updatePackController = async (req) => {
     const { id } = req.params;
-    const { name, description, discount, services_ids } = req.body;
+    const { name, description, discount, services_ids, image } = req.body;
+    const service_set_identifier = crypto
+        .createHash("sha256")
+        .update(services_ids.sort().join(""))
+        .digest("hex")
+        .slice(0, 32);
 
     const services = await Service.findAll({
         where: {
@@ -203,13 +292,14 @@ const updatePackController = async (req) => {
         (acc, service) => acc + service.price,
         0
     );
-    const final_total = original_total - original_total * (discount ?? 0);
+
+    const final_total = original_total - original_total * discount * 0.01;
 
     const packToUpdate = await Pack.findByPk(id, {
         include: [
             {
                 model: Service,
-                attributes: ["id", "name", "price"],
+                attributes: ["id", "name", "price", "image"],
                 through: {
                     attributes: [],
                 },
@@ -219,9 +309,12 @@ const updatePackController = async (req) => {
     const newData = {
         name: name || packToUpdate.name,
         description: description || packToUpdate.description,
-        original_total: original_total || packToUpdate.original_total,
-        final_total: final_total || packToUpdate.final_total,
-        discount: discount || packToUpdate.discount,
+        original_total: original_total ?? packToUpdate.original_total,
+        final_total: final_total ?? packToUpdate.final_total,
+        discount: discount ?? packToUpdate.discount,
+        image: image || packToUpdate.image,
+        service_set_identifier:
+            service_set_identifier || packToUpdate.service_set_identifier,
     };
     await packToUpdate.update(newData);
     await packToUpdate.setServices(services);
@@ -243,4 +336,6 @@ module.exports = {
     updatePackController,
     getPacksController,
     getPackByIdController,
+    createArrayPacksController,
+    deletePackArrayController,
 };

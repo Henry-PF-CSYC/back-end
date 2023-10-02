@@ -40,6 +40,7 @@ const getAdmin = async (req, res) => {
 };
 const getAllUsers = async (req, res) => {
     const { name, email } = req.query;
+    const { user_email } = req.params;
 
     try {
         if (name) {
@@ -51,9 +52,9 @@ const getAllUsers = async (req, res) => {
                     .json({ message: "El usuario solicitado no existe" });
             }
             return res.status(200).json(user);
-        } else if (email) {
+        } else if (email || user_email) {
             // Si se proporciona un valor para 'email', busca por email
-            const user = await getUserByEmail(email);
+            const user = await getUserByEmail(email || user_email);
             if (!user) {
                 return res
                     .status(400)

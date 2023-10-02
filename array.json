@@ -295,7 +295,7 @@
         "description": "Disfruta de tus series y películas favoritas con este servicio de streaming.",
         "provider": "?",
         "price": 1200,
-        "image": "https://firebasestorage.googleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FStreaming%2Fstreaming-plan10.png?alt=media&token=060489aa-6bb8-4ec0-b614-31f2649a8139",
+        "image": "https://firebasestorage.oogleapis.com/v0/b/pf-henry-16edc.appspot.com/o/planes%2FStreaming%2Fstreaming-plan10.png?alt=media&token=060489aa-6bb8-4ec0-b614-31f2649a8139",
         "status": "available"
     }
 ]

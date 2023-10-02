@@ -1,0 +1,48 @@
+[
+    {
+        "name": "Pack 1",
+        "description": "This is pack 1",
+        "discount": 10,
+        "services_ids": [
+            "3ec2186f-a382-45a7-bced-4f68f153d688",
+            "25293e33-10e0-4048-a10f-704f5cbfabc0",
+            "396d042e-e87d-4b5b-bcb1-1092b30b455f",
+            "bb337235-beae-4e18-8049-fed565fe8af1",
+            "8e9e529d-f91f-4269-b98e-57e1581b72c9",
+            "4c54ddb7-40ee-435a-b888-fa9f333a7b52",
+            "db140fac-3ae7-4c05-bc74-13a61668caa1",
+            "41446cfe-94cb-4359-967a-b3b579a010a7",
+            "66f95b18-eb47-4c78-813c-9f09784fe49e",
+            "9f5712be-2d7d-48de-83f5-3fe143e74073",
+            "0cb93e11-5b67-41a7-92c1-e33974295c78",
+            "52763907-925e-4381-b0c9-42c873c8da14",
+            "98e5f3d5-7400-402d-81be-44150eefcc68",
+            "f6832a57-0347-437e-9672-d1e1b1bb192b",
+            "a3511b14-93c5-4ab2-ac4d-eee50dc7f4a5",
+            "57905e22-d77e-4e4f-ad7a-463decd67e96",
+            "59752bf7-e20b-4351-ad4c-0e45e6813372"
+        ],
+        "image": "https://example.com/pack1.jpg"
+    },
+    {
+        "name": "Pack 2",
+        "description": "This is pack 2",
+        "discount": 20,
+        "services_ids": [
+            "ca8dc04b-6945-4be9-ad6c-280b73134da0",
+            "46e7ffa1-64db-4fad-a8e1-8cc97ca73d89",
+            "7910836f-6fb9-42bf-bfd5-e2f5ee7e7602",
+            "d2194283-dfc9-42a2-84b3-8ba01ae45f4b",
+            "496470d4-2eca-4cbe-83bf-198c81a681f9",
+            "1b35e6f1-8d70-4e89-84a5-d99ee54e1b86",
+            "6d4cc8ad-e1da-49cd-82dd-c1ca62ac692d",
+            "17e0321b-1cab-4d4f-8d3f-b143bf387514",
+            "a1387294-587d-402c-86a6-bd2ac7d3aa2a",
+            "dee28af7-f63b-44a6-b14c-2912c44bbe5e",
+            "1e8d0922-0d37-44a0-b549-e77b8685a930",
+            "324ab607-3bda-4a81-acbe-c6c23c58bc04",
+            "ae2c5954-fce8-4e1a-9ace-c89f0ffa6a12"
+        ],
+        "image": "https://example.com/pack2.jpg"
+    }
+]

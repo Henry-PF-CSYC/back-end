@@ -9,18 +9,12 @@ module.exports = (sequelize) => {
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
             },
-            due_date: {
-                type: DataTypes.DATE,
-                allowNull: true,
-            },
+
             deletedAt: {
                 type: DataTypes.DATE,
                 allowNull: true,
             },
-            status: {
-                type: DataTypes.ENUM("activa", "inactiva", "vencida"),
-                allowNull: false,
-            },
+
             user_id: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -45,6 +39,32 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: false,
                 unique: true,
+            },
+            through_pack: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false,
+                defaultValue: false,
+            },
+            pack_id: {
+                type: DataTypes.UUID,
+                allowNull: true,
+                references: {
+                    model: "packs",
+                    key: "id",
+                },
+            },
+            due_date: {
+                type: DataTypes.DATE,
+                allowNull: true,
+            },
+            due_payment: {
+                type: DataTypes.NUMERIC,
+                allowNull: false,
+            },
+            status: {
+                type: DataTypes.ENUM("activa", "inactiva", "vencida"),
+                allowNull: false,
+                defaultValue: "activa",
             },
         },
         {
