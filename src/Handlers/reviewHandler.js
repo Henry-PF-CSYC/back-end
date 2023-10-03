@@ -2,50 +2,62 @@ const { Review, Subscription } = require("../db");
 
 // Crear una reseña
 const handlePostReview = async (req, res) => {
-  try {
-    const { rating, comment, serviceId, user_email } = req.body;
+    try {
+        const { rating, comment, serviceId, user_email } = req.body;
+        const reviewLog = {
+            rating,
+            comment,
+            user_id: user_email,
+            service_id: serviceId,
+            user_service_pair: `${user_email}-${serviceId}`,
+        };
+        console.log(reviewLog);
 
-    const subscription = await Subscription.findOne({
-      where: {
-        user_id: user_email,
-        service_id: serviceId,
-        status: "activa",
-      },
-    });
+        const subscription = await Subscription.findOne({
+            where: {
+                user_id: user_email,
+                service_id: serviceId,
+                status: "activa",
+            },
+        });
+        console.log(subscription);
 
-    if (!subscription) {
-      return res.status(403).json({
-        message:
-          "No puedes dejar una reseña para este servicio ya que no estás suscrito o tu suscripción está inactiva.",
-      });
+        if (!subscription) {
+            return res.status(403).json({
+                message:
+                    "No puedes dejar una reseña para este servicio ya que no estás suscrito o tu suscripción está inactiva.",
+            });
+        }
+
+        const existingReview = await Review.findOne({
+            where: {
+                user_id: user_email,
+                service_id: serviceId,
+            },
+        });
+        console.log(existingReview);
+
+        if (existingReview) {
+            return res.status(403).json({
+                message:
+                    "Ya has dejado una reseña para este servicio anteriormente.",
+            });
+        }
+
+        const review = await Review.create({
+            rating,
+            comment,
+            user_id: user_email,
+            service_id: serviceId,
+            user_service_pair: `${user_email}-${serviceId}`,
+        });
+        console.log(review);
+
+        return res.status(201).json(review);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: error.message });
     }
-
-    const existingReview = await Review.findOne({
-      where: {
-        user_id: user_email,
-        service_id: serviceId,
-      },
-    });
-
-    if (existingReview) {
-      return res.status(403).json({
-        message: "Ya has dejado una reseña para este servicio anteriormente.",
-      });
-    }
-
-    const review = await Review.create({
-      rating,
-      comment,
-      user_id: user_email,
-      service_id: serviceId,
-      user_service_pair: `${user_email}-${serviceId}`,
-    });
-
-    return res.status(201).json(review);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: error.message });
-  }
 };
 
 const getAllReviews = async (req, res) => {
