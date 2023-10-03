@@ -15,7 +15,6 @@ const {
 const userRouter = Router();
 
 userRouter.get("/", getAllUsers);
-userRouter.get("/:user_email", getAllUsers);
 userRouter.post("/", createUser);
 
 userRouter.get("/admin", getAdmin);

@@ -116,11 +116,6 @@ const getAdminController = async (req, res) => {
 };
 const getAllUsersController = async () => {
     return await User.findAll({
-        where: {
-            role: {
-                [Op.not]: ["admin", "contact_admin"],
-            },
-        },
         raw: true,
         paranoid: false,
     });
