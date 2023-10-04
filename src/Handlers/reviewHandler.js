@@ -179,8 +179,20 @@ const handleDeleteReview = async (req, res) => {
     }
 };
 
-module.exports = {
-    handleDeleteReview,
+const getByUserAndService = async (req, res) => {
+    const { user_email } = req.params;
+    const { service_id } = req.query;
+    try {
+        const review = await Review.findOne({
+            where: { user_id: user_email, service_id: service_id },
+        });
+        if (!review) {
+            return res.status(400).json({ error: "No se encontró la reseña" });
+        }
+        return res.status(200).json(review);
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
 };
 
 module.exports = {
@@ -190,4 +202,5 @@ module.exports = {
     getAllReviews,
     handleReviewById,
     handleDeleteReview,
+    getByUserAndService,
 };
