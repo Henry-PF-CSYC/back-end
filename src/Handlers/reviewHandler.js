@@ -78,7 +78,8 @@ const getAllReviews = async (req, res) => {
 
 const handleGetReviewsByServiceId = async (req, res) => {
     const { serviceId } = req.params;
-    const { rating, date, order } = req.query;
+    const { rating, date } = req.query;
+    let order = req.query.order;
     order = order.toLowerCase();
 
     try {
