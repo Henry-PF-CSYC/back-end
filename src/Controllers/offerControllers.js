@@ -5,7 +5,7 @@ const getAllOfferController = async (req) => {
     const { title, type, order, orderBy, page, size, user_type } = req.query;
     let offers = [];
     let is_paranoid = true;
-    if (user_type === "admin" || user_type === "contact_admin ")
+    if (user_type === "admin" || user_type === "contact_admin")
         is_paranoid = false;
     else is_paranoid = true;
     if (title)
