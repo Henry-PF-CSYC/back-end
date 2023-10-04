@@ -87,7 +87,10 @@ const deleteOfferHandler = async (req, res) => {
     const offerId = req.params.id;
     const { type } = req.query;
     try {
-        const offer = await Offer.findByPk(offerId);
+        const offer = await Offer.findOne({
+            where: { id: offerId },
+            paranoid: false,
+        });
         if (!offer) {
             return res
                 .status(400)
