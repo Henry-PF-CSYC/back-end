@@ -14,7 +14,6 @@ const banUserController = async (user_email, type) => {
         }
 
         let bannedUser = await userToBan.update({ role: "banned" });
-        bannedUser = await userToBan.destroy();
 
         return bannedUser;
     } else if (type === "unban") {
@@ -28,7 +27,6 @@ const banUserController = async (user_email, type) => {
         }
 
         let unbannedUser = await userToUnban.update({ role: "user" });
-        unbannedUser = await userToUnban.restore();
 
         return unbannedUser;
     }
