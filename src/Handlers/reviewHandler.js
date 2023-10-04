@@ -78,7 +78,8 @@ const getAllReviews = async (req, res) => {
 
 const handleGetReviewsByServiceId = async (req, res) => {
     const { serviceId } = req.params;
-    const { rating, date } = req.query;
+    const { rating, date, order } = req.query;
+    order = order.toLowerCase();
 
     try {
         // Busca las revisiones asociadas al servicio por su ID
@@ -94,11 +95,19 @@ const handleGetReviewsByServiceId = async (req, res) => {
 
         if (rating) {
             reviews = reviews.sort((a, b) => {
-                return a.rating - b.rating;
+                if (order === "asc") {
+                    return a.rating - b.rating;
+                } else {
+                    return b.rating - a.rating;
+                }
             });
         } else if (date) {
             reviews = reviews.sort((a, b) => {
-                return a.createdAt - b.createdAt;
+                if (order === "asc") {
+                    return a.createdAt - b.createdAt;
+                } else {
+                    return b.createdAt - a.createdAt;
+                }
             });
         }
 
