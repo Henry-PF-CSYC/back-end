@@ -80,7 +80,12 @@ const handleGetReviewsByServiceId = async (req, res) => {
     const { serviceId } = req.params;
     const { rating, date } = req.query;
     let order = req.query.order;
+
+    if (order){
     order = order.toLowerCase();
+    } else {
+        order = "desc";
+    }
 
     try {
         // Busca las revisiones asociadas al servicio por su ID
