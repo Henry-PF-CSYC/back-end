@@ -1,6 +1,37 @@
 const { User } = require("../db");
 const { Op } = require("sequelize");
+const updateUserController = async (req) => {
+    const { name, lastname, username, email, phone, address, dni, image } =
+        req.body;
+    const user_email = req.params.user_email;
 
+    const nameCapitalized =
+        name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    const lastnameCapitalized =
+        lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase();
+
+    const user = await User.findOne({
+        where: { email: user_email },
+        paranoid: false,
+    });
+
+    if (!user) {
+        throw new Error("No se encontró el usuario");
+    }
+
+    let updatedUser = await user.update({
+        name: nameCapitalized,
+        lastname: lastnameCapitalized,
+        username,
+        email,
+        phone,
+        address,
+        dni,
+        image,
+    });
+
+    return updatedUser;
+};
 const banUserController = async (user_email, type) => {
     //ban or unban
     if (type === "ban") {
@@ -182,7 +213,7 @@ module.exports = {
     getContactAdminController,
     banUserController,
     userDeleteAccountController,
-
+    updateUserController,
     setUnsetUserAsAdminController,
     getAdminByEmailController,
 };
