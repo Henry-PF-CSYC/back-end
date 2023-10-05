@@ -1,44 +1,41 @@
 const { DataTypes } = require("sequelize");
-
 module.exports = (sequelize) => {
     sequelize.define(
-        "service",
+        "offer",
         {
             id: {
                 primaryKey: true,
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
             },
-            type: {
+            user_id: {
                 type: DataTypes.STRING,
                 allowNull: false,
+                references: {
+                    model: "users",
+                    key: "email",
+                },
             },
-            name: {
+            title: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
             description: {
-                type: DataTypes.STRING,
-                allowNull: false,
+                type: DataTypes.TEXT,
             },
-            provider: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            price: {
+            contact: {
                 type: DataTypes.NUMERIC,
                 allowNull: false,
             },
             image: {
                 type: DataTypes.STRING,
+            },
+            type: {
+                type: DataTypes.ENUM("compra", "venta", "se busca"),
                 allowNull: false,
             },
-            status: {
-                type: DataTypes.ENUM(
-                    "available",
-                    "discontinued",
-                    "unavailable"
-                ),
+            price: {
+                type: DataTypes.NUMERIC,
                 allowNull: false,
             },
             deletedAt: {
@@ -49,7 +46,6 @@ module.exports = (sequelize) => {
         },
         {
             paranoid: true,
-            timestamps: true,
         }
     );
 };

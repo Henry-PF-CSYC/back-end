@@ -2,16 +2,16 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
     sequelize.define(
-        "service",
+        "pack",
         {
             id: {
                 primaryKey: true,
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
             },
-            type: {
+            image: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             name: {
                 type: DataTypes.STRING,
@@ -19,37 +19,31 @@ module.exports = (sequelize) => {
             },
             description: {
                 type: DataTypes.STRING,
-                allowNull: false,
             },
-            provider: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            price: {
+            original_total: {
                 type: DataTypes.NUMERIC,
                 allowNull: false,
             },
-            image: {
-                type: DataTypes.STRING,
+            final_total: {
+                type: DataTypes.NUMERIC,
                 allowNull: false,
             },
-            status: {
-                type: DataTypes.ENUM(
-                    "available",
-                    "discontinued",
-                    "unavailable"
-                ),
+            discount: {
+                type: DataTypes.NUMERIC,
                 allowNull: false,
             },
             deletedAt: {
                 type: DataTypes.DATE,
                 allowNull: true,
-                defaultValue: null,
+            },
+            service_set_identifier: {
+                type: DataTypes.TEXT,
+                allowNull: false,
+                unique: true,
             },
         },
         {
             paranoid: true,
-            timestamps: true,
         }
     );
 };

@@ -6,12 +6,55 @@ module.exports = (sequelize) => {
     sequelize.define(
         "user",
         {
-            id: {
+            email: {
+                type: DataTypes.STRING,
                 primaryKey: true,
-                type: DataTypes.UUID,
-                defaultValue: DataTypes.UUIDV4,
+            },
+            dni: {
+                type: DataTypes.NUMERIC,
+                unique: true,
+                allowNull: true,
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            lastname: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
+            phone: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
+            address: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
+            role: {
+                type: DataTypes.ENUM(
+                    "user",
+                    "admin",
+                    "contact_admin",
+                    "banned",
+                    "super_admin"
+                ),
+                defaultValue: "user",
+                allowNull: false,
+            },
+            image: {
+                //TODO: handle based on how firebase works
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
+            deletedAt: {
+                type: DataTypes.DATE,
+                allowNull: true,
+                defaultValue: null,
             },
         },
-        { timestamps: false }
+        {
+            paranoid: true,
+        }
     );
 };
