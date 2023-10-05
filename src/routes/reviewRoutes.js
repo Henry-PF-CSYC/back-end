@@ -8,7 +8,7 @@ const {
     handleDeleteReview,
     getByUserAndService,
 } = require("../Handlers/reviewHandler");
-
+console.log(`reviewRouter`);
 const reviewRouter = Router();
 reviewRouter.post("/", handlePostReview);
 reviewRouter.get("/", getAllReviews);

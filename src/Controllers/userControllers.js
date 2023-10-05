@@ -77,7 +77,7 @@ const userDeleteAccountController = async (user_email) => {
     return deletedUser;
 };
 
-const postUserControler = async (
+const postUserController = async (
     name,
     lastname,
     username,
@@ -205,7 +205,7 @@ const getAdminByEmailController = async (user_email) => {
 };
 
 module.exports = {
-    postUserControler,
+    postUserController,
     getUserByName,
     getAllUsersController,
     getUserByEmail,
