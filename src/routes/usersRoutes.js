@@ -7,15 +7,16 @@ const {
     getContactAdmin,
     banOrUnbanUser,
     userDeleteAccount,
-
+    updateUser,
     setUnsetUserAsAdmin,
     getAdminByEmail,
 } = require("../Handlers/userHandlers");
 
 const userRouter = Router();
 
-userRouter.get("/", getAllUsers);
+userRouter.get("/", getAllUsers); //query includes email
 userRouter.post("/", createUser);
+userRouter.put("/:user_email", updateUser);
 
 userRouter.get("/admin", getAdmin);
 

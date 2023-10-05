@@ -1,5 +1,5 @@
 const {
-    postUserControler,
+    postUserController,
     getUserByName,
     getAllUsersController,
     getUserByEmail,
@@ -9,7 +9,18 @@ const {
     userDeleteAccountController,
     setUnsetUserAsAdminController,
     getAdminByEmailController,
+    updateUserController,
 } = require("../Controllers/userControllers");
+
+const updateUser = async (req, res) => {
+    try {
+        const user = await updateUserController(req);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 const banOrUnbanUser = async (req, res) => {
     const { user_email } = req.params;
     const { type } = req.query;
@@ -53,7 +64,7 @@ const getAllUsers = async (req, res) => {
             return res.status(200).json(user);
         } else if (email) {
             // Si se proporciona un valor para 'email', busca por email
-            const user = await getUserByEmail(email || user_email);
+            const user = await getUserByEmail(email);
             if (!user) {
                 return res
                     .status(400)
@@ -89,7 +100,7 @@ const createAdmin = async (req, res) => {
     } = req.body;
     const role = "admin";
     try {
-        const newAdmin = await postUserControler(
+        const newAdmin = await postUserController(
             name,
             lastname,
             username,
@@ -123,7 +134,7 @@ const createUser = async (req, res) => {
     } = req.body;
     try {
         const role = "user";
-        const newUsers = await postUserControler(
+        const newUsers = await postUserController(
             name,
             lastname,
             username,
@@ -179,7 +190,7 @@ module.exports = {
     getContactAdmin,
     banOrUnbanUser,
     userDeleteAccount,
-
+    updateUser,
     setUnsetUserAsAdmin,
     getAdminByEmail,
 };
