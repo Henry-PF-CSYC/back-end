@@ -11,7 +11,6 @@ const handlePostReview = async (req, res) => {
             service_id: serviceId,
             user_service_pair: `${user_email}-${serviceId}`,
         };
-        console.log(reviewLog);
 
         const subscription = await Subscription.findOne({
             where: {
@@ -20,7 +19,6 @@ const handlePostReview = async (req, res) => {
                 status: "activa",
             },
         });
-        console.log(subscription);
 
         if (!subscription) {
             return res.status(403).json({
@@ -35,7 +33,6 @@ const handlePostReview = async (req, res) => {
                 service_id: serviceId,
             },
         });
-        console.log(existingReview);
 
         if (existingReview) {
             return res.status(403).json({
@@ -51,7 +48,6 @@ const handlePostReview = async (req, res) => {
             service_id: serviceId,
             user_service_pair: `${user_email}-${serviceId}`,
         });
-        console.log(review);
 
         return res.status(201).json(review);
     } catch (error) {
